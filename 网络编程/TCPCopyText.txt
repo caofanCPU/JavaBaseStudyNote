@@ -1,0 +1,113 @@
+[1]    
+[2]    import java.net.*;
+[3]    import java.io.*;
+[4]    class TCPCopyText {
+[5]    	public static void main(String[] args) {
+[6]    		/**
+[7]    		 * TCPCopyText.java文件解决问题：
+[8]    		 * 使用TCP将客户端的文本文件上传至服务器
+[9]    		 */
+[10]    		
+[11]    	}
+[12]    	
+[13]    	public static void sop(Object obj) {
+[14]    		/**
+[15]    		 * 打印字符串
+[16]    		 * 
+[17]    		 */
+[18]    		System.out.println(obj);
+[19]    	}
+[20]    
+[21]    	public static void lineSplit() {
+[22]    		/**
+[23]    		 * 打印分隔符
+[24]    		 * 
+[25]    		 */
+[26]    		sop("---------------------------");
+[27]    	}
+[28]    }
+[29]    
+[30]    class TCPCopyTextServer {
+[31]    	public static void main(String[] args) throws Exception {
+[32]    		ServerSocket ss = new ServerSocket(12121);
+[33]    		Socket s = ss.accept();
+[34]    		String ip = s.getInetAddress().getHostAddress();
+[35]    		sop("客户端" + ip + "正在连接...");
+[36]    		File textFile = new File("TCPCopyText.txt");
+[37]    		BufferedWriter bufw = new BufferedWriter(new FileWriter(textFile));
+[38]    		BufferedReader bufrIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
+[39]    		BufferedWriter bufwOut = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+[40]    		String line = null;
+[41]    		int i = 1;
+[42]    		//bufrIn.readLine()当且仅当，读取到流末尾时，才返回null
+[43]    		while (null != (line = bufrIn.readLine())) {
+[44]    			bufw.write("[" + i + "]    " + line);
+[45]    			bufw.newLine();
+[46]    			bufw.flush();
+[47]    			i++;
+[48]    		}
+[49]    		/**
+[50]    		 * BufferedWriter.write()方法，必须使用3步！
+[51]    		 * 第一步：写入目的字符串
+[52]    		 * 第二步：补上行结束标记
+[53]    		 * 第三步：将输出流缓存刷新至输出流！！
+[54]    		 * 如果，服务器发给客户端的输出流不包含行结束符，又未关闭客户端镜像，也为关闭服务器服务
+[55]    		 * 在客户端执行.readLine()时，因为读取不到行结束标记，从而一直阻塞，直至java.net.SocketException: Connection reset
+[56]    		 */
+[57]    		bufwOut.write("文件上传成功！");
+[58]    		bufwOut.newLine();
+[59]    		bufwOut.flush();
+[60]    
+[61]    		bufw.close();
+[62]    		s.close();		//关闭客户端镜像，关闭后客户端与服务器所有链接操作均禁止
+[63]    		ss.close();
+[64]    	}
+[65]    
+[66]    	public static void sop(Object obj) {
+[67]    		/**
+[68]    		 * 打印字符串
+[69]    		 * 
+[70]    		 */
+[71]    		System.out.println(obj);
+[72]    	}
+[73]    }
+[74]    
+[75]    class TCPCopyTextClient {
+[76]    	public static void main(String[] args) throws Exception {
+[77]    		Socket s = new Socket("127.0.0.1", 12121);
+[78]    		File textFile = new File("TCPCopyText.java");
+[79]    		BufferedReader bufr = new BufferedReader(new FileReader(textFile));
+[80]    		BufferedWriter bufwOut = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+[81]    		BufferedReader bufrIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
+[82]    		//以行读取方式读取文本文件
+[83]    		String line = null;
+[84]    		/**
+[85]    		 * while循环最后一次，bufr.readLine()读到文件尾，因而未发送输出流
+[86]    		 * 若缺少结束标记，服务器很可能死等
+[87]    		 * 因而，使用Socket.shotDownOutput()，禁用输出流，即输出流到达流末尾
+[88]    		 */
+[89]    		while (null != (line = bufr.readLine())) {
+[90]    			//将文本文件的每行(未包含行结束标记)写入输出流缓存区
+[91]    			bufwOut.write(line);
+[92]    			//补上行结束标记
+[93]    			bufwOut.newLine();
+[94]    			//将输出流缓存区数据刷新至输出流，以此通过网卡发送给服务器
+[95]    			bufwOut.flush();
+[96]    		}
+[97]    		//客户端上传文件内容结束后，给服务器发送"输出流末尾"标记
+[98]    		s.shutdownOutput();
+[99]    		line = bufrIn.readLine();
+[100]    		sop(line);
+[101]    		//关闭流
+[102]    		bufr.close();
+[103]    		s.close();
+[104]    	}
+[105]    
+[106]    	public static void sop(Object obj) {
+[107]    		/**
+[108]    		 * 打印字符串
+[109]    		 * 
+[110]    		 */
+[111]    		System.out.println(obj);
+[112]    	}
+[113]    }

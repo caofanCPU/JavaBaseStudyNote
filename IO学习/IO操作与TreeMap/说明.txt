@@ -1,0 +1,25 @@
+主    类：FileContentCompare.java，在指定路径下创建文件夹和文件
+			  创建调用MakeKeyValueFile类，产生源文件A，源文件B
+			  创建调用FileAnalysis类，对文件A、文件B进行正则匹配，并将清理简化后的内容写入到新的文件中
+			  创建调用KeyValue类，将文件A、文件B中的键值使用TreeMap存储起来
+			  调用本类keyValueCompare()成员方法，完成相同键值，同键不同值，不同键不同值的文件写入
+			  最后产生的结果：
+			  文件A.txt，文件B.txt为带有干扰的源文本文件
+			  文件A_正则匹配处理后.txt，文件B_正则匹配处理后.txt为正则匹配处理后得到的文件
+			  key_value_AllSame.txt保存的是文件A、文件B中键值都相同的文本内容
+			  key_value_BothNot.txt保存的是只在文件A中存在的键及其对应的值，即为集合(A-A∩B)
+			  keySame_valueNot.txt保存的是文件A、文件B同键而不同值的文本内容
+			  
+			  附加：TreeMapCheckAPI.java作为验证主类keyValueCompare()成员方法功能的独立小程序
+			              单独运行，可直观验证其分离键值的功能
+			              ChinesesUnicode.java用于，获取正则表达式中汉字Unicode编码表示，作为辅助使用
+			  
+辅助类：MakeKeyValueFile.java，创建带有一定干扰字符串的目的键值文本文件
+			  使得文件A每行内容：[编号]"干扰字符串"键唯一标记字符K或k键字符串，值唯一标记字符V或v数字串"干扰字符串"
+			  预先设计的键为姓名字符串，值为数字串
+			  但由于情况很多，需要调整文件行数才能一次展现，键值相同、键同值不同、键值都不同的情况
+			  因而测试时，把数字串作为键，姓名字符串作为值
+			  (另外一个方法：手工操作，运行一次程序，会得到文件A、文件B，选择文件A的若干行，复制粘贴到文件B末尾，
+			  在主函数中注释掉创建、写入操作文件A、文件B的部分)
+辅助类：FileAnalysis.java，对传入的文件A文件B进行正则匹配清理
+辅助类：KeyValue.java，对键值规范文本文件，每一行内容模式：<键，值>进行TreeMap排序存储

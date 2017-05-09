@@ -1,0 +1,90 @@
+[1]  
+[2]  //package A.B;
+[3]  import java.io.*;
+[4]  class CopyTextByBuffer {
+[5]  	public static void main(String[] args) {
+[6]  		/**
+[7]  		 * CopyTextByBuffer.java文件解决问题：
+[8]  		 * 通过字符流缓冲区，从源字符类文件复制到目的字符类文件
+[9]  		 * 示例：将本代码文件CopyTextByBuffer.java复制到同目录下CopyTextByBuffer.txt中
+[10]  		 *		 要求，两个文件内容几本一致
+[11]  		 *		 且CopyTextByBuffer.txt中显示了CopyTextByBuffer.java的代码行号
+[12]  		 *		 如第一行代码：import java.io.*; 应对应为[1]  import java.io.*;
+[13]  		 */
+[14]  		String sourceDir = System.getProperty("user.dir");	//获取本java文件所在的父目录
+[15]  		String destinationDir = sourceDir;
+[16]  		//sop(sourceDir);
+[17]  		copyFile(sourceDir, destinationDir);
+[18]  		lineSplit();
+[19]  
+[20]  	}
+[21]  	
+[22]  	public static void copyFile(String sourceDir, String destinationDir) {
+[23]  		File sourceFile = new File(sourceDir, "CopyTextByBuffer.java");
+[24]  		File destinationFile = new File(destinationDir, "Java代码将自身内容复制到指定文件.txt");
+[25]  		BufferedReader bufr = null;
+[26]  		BufferedWriter bufw = null;
+[27]  		if (!sourceFile.exists()) {
+[28]  			throw new RuntimeException("源文件路径错误或源文件不存在！");
+[29]  		}
+[30]  		if (!sourceFile.isFile()) {
+[31]  			throw new RuntimeException("源文件不存在，只有同名目录！");
+[32]  		}
+[33]  		if (0 == sourceFile.length()) {
+[34]  			throw new RuntimeException("原文件存在但内容为空");
+[35]  		}
+[36]  		if (!destinationFile.getParentFile().isDirectory()) {
+[37]  			throw new RuntimeException("目的文件指定父目录路径错误！");
+[38]  		}
+[39]  		try {
+[40]  			bufr = new BufferedReader(new FileReader(sourceFile));
+[41]  			bufw = new BufferedWriter(new FileWriter(destinationFile));
+[42]  			String line = null;
+[43]  			int i = 1;
+[44]  			while (null != (line = bufr.readLine())) {	//注意：.readLine()方法不会返回"换行"
+[45]  				bufw.write("[" + i + "]  " + line + "\r\n");
+[46]  				bufw.flush();
+[47]  				i++;
+[48]  			}
+[49]  		}
+[50]  		catch(IOException e) {
+[51]  			throw new RuntimeException("读写失败");
+[52]  		}
+[53]  		finally {
+[54]  			try {
+[55]  				if(null != bufr) {
+[56]  					bufr.close();
+[57]  				}
+[58]  			}
+[59]  			catch(IOException e) {
+[60]  				throw new RuntimeException("源文件读取关闭失败！");
+[61]  			}
+[62]  			try {
+[63]  				if(null != bufw) {
+[64]  					bufw.close();
+[65]  				}
+[66]  			}
+[67]  			catch(IOException e) {
+[68]  				throw new RuntimeException("目的文件写入关闭失败！");
+[69]  			}
+[70]  		}
+[71]  		sop("Successful!--源文件：\"" + sourceFile.getName() + "\"[复制到]"
+[72]  			+ "目的文件\"" + destinationFile.getName() + "\"");
+[73]  	}
+[74]  
+[75]  	public static void sop(Object obj) {
+[76]  		/**
+[77]  		 * 打印字符串
+[78]  		 * 
+[79]  		 */
+[80]  		System.out.println(obj);
+[81]  	}
+[82]  
+[83]  	public static void lineSplit() {
+[84]  		/**
+[85]  		 * 打印分隔符
+[86]  		 * 
+[87]  		 */
+[88]  		sop("---------------------------");
+[89]  	}
+[90]  }

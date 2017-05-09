@@ -1,0 +1,106 @@
+[1]    
+[2]    import java.io.*;
+[3]    class BufferedDemo {
+[4]    	public static void main(String[] args) {
+[5]    		/**
+[6]    		 * BufferedDemo.java文件解决问题：
+[7]    		 * 通过缓冲区写入文本内容
+[8]    		 * 通过缓冲区将本代码文件复制到另外一个文件中，带上行号
+[9]    		 * 通过缓冲区将本代码文件打印到控制台上，带上行号
+[10]    		 */
+[11]    		//bufferedWriterMain();
+[12]    		bufferedReaderMain();
+[13]    	}
+[14]    	
+[15]    	public static void bufferedWriterMain() {
+[16]    		BufferedWriter bufw = null;
+[17]    		try {
+[18]    			/**
+[19]    			 * BufferedWriter、BufferedReader需要关联读操作流、写操作流
+[20]    			 * 常见均使用：BufferedWriter bufw = new BufferedWriter(new FileWriter("文件名"));
+[21]    			 *			   BufferedReader bufr = new BufferedReader(new FileReader("文件名"))
+[22]    			 * 原因在于：Buffered读写，封装了File读写的方法，关闭Buffered读写实质上就是关闭File读写
+[23]    			 */
+[24]    			bufw = new BufferedWriter(new FileWriter("Buf.txt"));
+[25]    			bufw.write("abcde");
+[26]    			bufw.newLine();
+[27]    			bufw.write("ABCDE");
+[28]    			//刷新写缓冲区，相当于"开"！
+[29]    			bufw.flush();
+[30]    		}
+[31]    		catch(IOException ioe) {
+[32]    			//待处理
+[33]    			sop("Catch:" + ioe.toString());
+[34]    		}
+[35]    		finally {
+[36]    			try {
+[37]    				if (null != bufw) {
+[38]    					bufw.close();
+[39]    				}
+[40]    			}
+[41]    			catch(IOException ioe) {
+[42]    				//待处理
+[43]    				sop("Catch:文件写入关闭失败！" + ioe.toString());
+[44]    			}
+[45]    		}
+[46]    	}
+[47]    
+[48]    	public static void bufferedReaderMain() {
+[49]    		BufferedReader bufr = null;
+[50]    		BufferedWriter bufw = null;
+[51]    		try {
+[52]    			bufr = new BufferedReader(new FileReader("BufferedDemo.java"));
+[53]    			bufw = new BufferedWriter(new FileWriter("BUfferedDemo.txt"));
+[54]    			String line = null;
+[55]    			int i = 1;
+[56]    			while (null != (line = bufr.readLine())) {
+[57]    				bufw.write("[" + i + "]    " + line);
+[58]    				bufw.newLine();
+[59]    				bufw.flush();
+[60]    				sop("[" + i + "]    " + line);
+[61]    				i++;
+[62]    			}
+[63]    		}
+[64]    		catch(IOException ioe) {
+[65]    			//待处理
+[66]    			sop("Catch:" + ioe.toString());
+[67]    		}
+[68]    		finally {
+[69]    			try {
+[70]    				if (null != bufr) {
+[71]    					bufr.close();
+[72]    				}
+[73]    			}
+[74]    			catch(IOException ioe) {
+[75]    				//待处理
+[76]    				sop("Catch:文件读取关闭失败！" + ioe.toString());
+[77]    			}
+[78]    
+[79]    			try {
+[80]    				if (null != bufw) {
+[81]    					bufw.close();
+[82]    				}
+[83]    			}
+[84]    			catch(IOException ioe) {
+[85]    				//待处理
+[86]    				sop("Catch文件写入关闭失败！" + ioe.toString());
+[87]    			}
+[88]    		}
+[89]    	}
+[90]    
+[91]    	public static void sop(Object obj) {
+[92]    		/**
+[93]    		 * 打印字符串
+[94]    		 * 
+[95]    		 */
+[96]    		System.out.println(obj);
+[97]    	}
+[98]    
+[99]    	public static void lineSplit() {
+[100]    		/**
+[101]    		 * 打印分隔符
+[102]    		 * 
+[103]    		 */
+[104]    		sop("---------------------------");
+[105]    	}
+[106]    }
