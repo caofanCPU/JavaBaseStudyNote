@@ -26,6 +26,6 @@ By [caofanCPU](https://github.com/caofanCPU) - Version 1.0
 
 * For **Network Programming**, it's application of IO Stream. However, "Java Web" provides a lot of tools and frameworks which instead of Network Programming. *So, pay your attention into IO Stream in the code*. At last, be familiar with TCP/UDP protocols will take you into the real net world.  
 
-* For *JavaWeb developments*, building a bookstore by using **servlet+dbutils+xml propties** will be a interesting start. You can know what a website looklike, what's more, how it's builder with Java coding.  
+* For *JavaWeb developments*, building a bookstore by using **servlet+dbutils+xml propties** will be a interesting start. You can know what a website looks like, what's more, how it's builded with Java coding.  
 
 ***
