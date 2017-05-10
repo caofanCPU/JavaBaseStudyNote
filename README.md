@@ -12,11 +12,11 @@ By [caofanCPU](https://github.com/caofanCPU) - Version 1.0
 
 ***
 ##Highlights
-![Register for BookStore](http://i4.buimg.com/588926/a709625a71e28d5d.png) 
+![Register for BookStore](http://i4.buimg.com/588926/a709625a71e28d5d.png)
 
 ![HashSet & TreeSet](http://i2.muimg.com/588926/69ebe7f1f26b8c05.png)  
 
-![Document similarity analysis](http://i2.muimg.com/588926/7d94568e122927cf.png)  
+![Document similarity analysis](http://i2.muimg.com/588926/7d94568e122927cf.png) 
 
 ***
 ## Remarks
