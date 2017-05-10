@@ -1,0 +1,271 @@
+//package XXX
+/*
+*编程实现：任意输入一个多位(12位及以内)合法整数，将其翻译为汉语进行输出
+*		   例如：输入：9987654321
+*				 输出：九十九亿八千七百六十五万四千三百二十一
+*				 输入：100100000010
+*				 输出：一千零一亿零一十
+*算法分析：
+*		   1.输入模块：接收用户输入，对其进行整数(小于等于12位)合法性校验，并考虑0的特殊情况；
+*		   2.翻译模块：将用户输入的符合规则的合法整数翻译为汉语；
+*		   3.输出模块：将翻译后的结果输出，并根据测试情况，调整、改进输入模块、翻译模块的功能；
+*		   核心算法思路：
+*		   ①输入限定最多12位的整数，翻译的结果的通用模式M：×千×百×十×亿×千×百×十×万×千×百×十×个
+*				(加入'个'是为了方便后续的翻译处理)
+*				那么对于输入的整数，将其插入到通用模式M中，替代×，再将数字"0-9"逐一翻译为汉语"零-九"
+*				(也可以先逐一翻译数字，再插入到模式M中)，得到【预输出】模式N
+*		   ②对N进行正则替换，并且是递进替换，替换后的结果再用于下一次这规则替换，
+*				替换规则(以10000000010一百亿零一拾为例)：
+*					用户输入10000000010，得到的【预输出】模式N为×千一百零十零亿零千零百零十零万零千零百一十零个
+*							|--检测到：×，那么说明用户输入的不足12位，应将×[任意单个字符]替换为空；
+*									   即得到：一百零十零亿零千零百零十零万零千零百一十零个
+*							|--检测到：零，后面不是亿或万或个，也就是：零后面是千或佰或十，那么去掉千或百或十，只保留零
+*									   即得到：一百零亿零零零零万零零一十零个
+*							|--检测到：连续多个零，那么替换为单个零
+*									   即得到：一百零亿零万零一十零个
+*							|--检测到：亿或万或个，前面是零，那么将这个零替换为空
+*									   即得到：一百亿万零一十个
+*							|--检测到：作为最高位的'一拾'，那么将一替换为空(这点是汉语上的规则，说十亿而不说一十亿)
+*									   即得到：一百亿万零十个
+*							|--检测到：个(这是程序引入的，要删掉)，将其替换为空
+*									   即得到：一百亿万零十
+*							|--检测到：亿，后面是万，(例如：X亿0000萬Y个)，将万替换为空
+*									   即得到：一百亿零十
+*							|--检测到：十，前面是零，(汉语上的规则，说零一十而非零十)
+*									   即得到：一百亿零一十
+*		   ③将执行②替换后的结果输出
+*		   备注：在执行正则替换中由于需要检测中文字符，因而需要获得 一些中文字符的 Unicode编码
+*				 在程序代码最后的大段注释块，提供了中文--Unicode互译的API函数
+*程序设计：
+*		   主类Integer2ChineseTest：
+*									main方法完成：创建Integer2Chinese类的对象
+*												  用户输入整数、整数合法性校验、构建通用模式M
+*												  调用Integer2Chinese对象的翻译API方法、获取输出结果API方法
+*		   类Integer2Chinese：
+*									私有成员：int2String字符串保存【用户的合法输入】
+*									私有成员：result字符串保存翻译结果
+*									成员方法：无参、带参构造函数
+*											  int2String成员的set、get方法
+*											  result成员的set、get方法
+*											  intTranslate【核心翻译】方法
+*											  switchBack数字->>汉语翻译方法
+*代码测试:
+请输入一个十二位以内(包含12位)的合法数字：
+10
+拾
+请输入一个十二位以内(包含12位)的合法数字：
+1010
+壹仟零壹拾
+请输入一个十二位以内(包含12位)的合法数字：
+102010
+拾萬贰仟零壹拾
+请输入一个十二位以内(包含12位)的合法数字：
+1001101010
+拾亿零壹佰壹拾萬壹仟零壹拾
+请输入一个十二位以内(包含12位)的合法数字：
+100000000
+壹亿
+请输入一个十二位以内(包含12位)的合法数字：
+100010011010
+壹仟亿壹仟零壹萬壹仟零壹拾
+请输入一个十二位以内(包含12位)的合法数字：
+110001010011
+壹仟壹佰亿零壹佰零壹萬零壹拾壹
+请输入一个十二位以内(包含12位)的合法数字：
+100000000001
+壹仟亿零壹
+*
+*
+*/
+
+import java.util.Scanner;
+class Integer2ChineseTest {
+	public static void main(String[] args) {
+		//使用正则表达式对输入的"整数"进行校验，规则：首位不能为0，最多12位
+		//"[1-9][0-9]{0,11}"
+		String regex = "[1-9][0-9]{0,11}";
+		String regexZero = "[0]+";
+	
+		while(true) {
+			System.out.println("请输入一个十二位以内(包含12位)的合法数字：");
+			// Scanner sc = new Scanner(System.in);
+			//下面使用匿名对象作为参数，对于检验输入"整数"而言，是浪费空间的
+			//							本应该，合法的才传递，不合法的丢弃
+			Integer2Chinese intS = new Integer2Chinese( new Scanner(System.in).nextLine() );
+			//考虑只输入0的的情形
+			if(intS.getInt2String().matches(regexZero)) {
+				System.out.println("零");
+				continue;
+			}
+
+			if(!intS.getInt2String().matches(regex)) { //输入不合法
+				System.out.println("输入不合法！");
+			}
+			else {
+				//（1）String类的toCharArray()方法，将字符串转换为字符数组
+				//（2）String类的valueOf()方法，将char类型的数组转换为字符串
+				//数组[]的长度.length；字符串的长度.length()
+				char[] mString = intS.getInt2String().toCharArray();
+				//对输入的整数进行高位填零补充，补充成[12]位
+				//输入整数在主函数内由exString保存
+				char[] exString = new char[] { '×', '仟', '×', '佰', '×', '拾', '×', '亿',
+											   '×', '仟', '×', '佰', '×', '拾', '×', '萬',
+											   '×', '仟', '×', '佰', '×', '拾', '×', '圆'};
+				/*
+				*输入5位A0A1AA2A3A4：
+				*A0 -- E15   15 = 23 - 8 = 23 - 4 * 2 
+				*A1 -- E17      = (exString.length - 1) - (mString.length - 1) * 2 
+				*A2 -- E19		= exString.length - mString.length * 2 + 1 
+				*A3 -- E21  
+				*A4 -- E23  
+				*/
+				int det = exString.length - mString.length * 2;
+				//将输入的整数转换为固定长度[默认12]的字符串数组，高位不足用'×'填充
+				for(int i = 0; i < mString.length; i++) {
+					exString[det + i * 2] = mString[i];
+				}
+				//进行翻译
+				intS.intTranslate(exString);
+				//获取并输出打印结果
+				System.out.println("输入为->>" + intS.getInt2String());
+				System.out.print("翻译后->>");
+				System.out.println(intS.getResult());
+			}
+		}
+	}
+}
+
+class Integer2Chinese {
+	private String int2String;			//保存输入整数的字符串形式，输入内容
+	private String result;				//保存翻译结果的字符串形式，输出结果
+	public Integer2Chinese() {};
+
+	public Integer2Chinese(String s) {
+		this.int2String = s;
+		this.result = "";				//结果初始化为空字符串
+	}
+	public String getInt2String() {		//获取输入内容
+		return this.int2String;
+	}
+	public void setInt2String(String s) {	//将字符串s写入int2String
+		this.int2String = s;
+	}
+	public String getResult() {			//获取输出结果
+		return this.result;
+	}
+	public void setResult(String rs) {	//将字符串rs写入result
+		this.result = rs;
+	}
+
+	//将整数翻译为汉语的API
+	//输入：字符数组intC
+	//输出：有效字符以及汉语规则下的"单位"
+	public void intTranslate(char[] intC) {
+		for(int i = 0; i < intC.length ; i += 2) {
+			/* 将整数逐位翻译为汉语
+			 { '×', '仟', '×', '佰', '×', '拾', '×', '亿',
+			   '×', '仟', '×', '佰', '×', '拾', '×', '萬',
+			   '×', '仟', '×', '佰', '×', '拾', '×', '圆'}
+			*/
+				intC[i] = switchBack(intC[i]); //将数字"0-9"翻译为中文繁体"零-玖"
+		}
+		/*
+		* 零一二三四五六七八九拾百千万亿元
+		* \u96f6\u4e00\u4e8c\u4e09\u56db\u4e94
+		* \u516d\u4e03\u516b\u4e5d\u62fe
+		* \u767e\u5343\u4e07\u4ebf\u5143
+		*
+		* 零壹贰叁肆伍陆柒捌玖拾佰仟萬亿圆
+		* \u96f6\u58f9\u8d30\u53c1\u8086\u4f0d
+		* \u9646\u67d2\u634c\u7396\u62fe
+		* \u4f70\u4edf\u842c\u4ebf\u5706
+		* 
+		* 萬\u842c；亿\u4ebf；圆\u5706；壹[\u58f9]；拾[\u62fe]
+		*/
+		String ms = String.valueOf(intC);		//将字符数组intC转换为字符串ms
+		ms = ms.replaceAll("[\u00d7].", "").							//去除'×'等默认无效位
+				replaceAll("[\u96f6][^\u4ebf\u842c\u5706]", "\u96f6").	//0后不是'亿'、'萬'、'圆'，就只保留0，去除单位
+				replaceAll("([\u96f6])\\1+", "零").						//将重复的多个零替换为单个零
+				replaceAll("[\u96f6]([\u5706\u4ebf\u842c])", "$1").		//将'圆'、'萬'、'亿'前的'零'消除掉
+				replaceAll("\\b[\u58f9]([\u62fe])", "$1").			    //位于最高位的壹拾亿、壹拾万、壹拾个，将'拾'前的'壹'去掉
+			    replaceAll("[\u5706]", "").								//将'圆'去掉
+				replaceAll("[\u4ebf][\u842c]", "\u4ebf").
+				//根据输入限制，0000亿不可能出现，但是X亿0000萬X可能出现，因而将0000萬去除'萬'
+				replaceAll("[\u96f6][\u62fe]", "\u96f6\u58f9\u62fe");	//汉语"零壹拾"而非"零拾"的习惯
+		setResult(ms);
+	}
+
+	public char switchBack(char c) {
+		switch(c) {
+		case '0':
+			return('零');
+		case '1':
+			return('壹');
+		case '2':
+			return('贰');
+		case '3':
+			return('叁');
+		case '4':
+			return('肆');
+		case '5':
+			return('伍');
+		case '6':
+			return('陆');
+		case '7':
+			return('柒');
+		case '8':
+			return('捌');
+		case '9':
+			return('玖');
+		default:
+			return('×');
+		}
+	}
+
+/************************
+*******************
+*************************
+*******************
+*************************
+//中文转Unicode
+	public static String gbEncoding(final String gbString) {   //gbString = "测试"  
+          char[] utfBytes = gbString.toCharArray();   //utfBytes = [测, 试]  
+          String unicodeBytes = "";     
+          for(int byteIndex = 0; byteIndex < utfBytes.length; byteIndex++) {     
+              String hexB = Integer.toHexString(utfBytes[byteIndex]);   //转换为16进制整型字符串  
+              if(hexB.length() <= 2) {     
+				hexB = "00" + hexB;     
+              }     
+              unicodeBytes = unicodeBytes + "\\u" + hexB;     
+          }     
+          System.out.println("unicodeBytes is: " + unicodeBytes);     
+          return unicodeBytes;     
+    }
+	
+//Unicode转中文  
+	public static String decodeUnicode(final String dataStr) {     
+		int start = 0;     
+		int end = 0;     
+		final StringBuffer buffer = new StringBuffer();     
+		while(start > -1) {     
+			end = dataStr.indexOf("\\u", start + 2);     
+			String charStr = "";     
+			if(end == -1) {     
+				charStr = dataStr.substring(start + 2, dataStr.length());     
+			}
+			else {     
+				charStr = dataStr.substring(start + 2, end);     
+			}     
+			char letter = (char) Integer.parseInt(charStr, 16); // 16进制parse整形字符串。     
+			buffer.append(new Character(letter).toString());     
+			start = end;     
+		}     
+		return buffer.toString();     
+	}
+*************************
+*******************
+*************************
+*******************
+************************/
+
+}
