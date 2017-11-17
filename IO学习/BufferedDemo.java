@@ -1,106 +1,99 @@
-
 import java.io.*;
+
 class BufferedDemo {
-	public static void main(String[] args) {
-		/**
-		 * BufferedDemo.javaÎÄ¼ş½â¾öÎÊÌâ£º
-		 * Í¨¹ı»º³åÇøĞ´ÈëÎÄ±¾ÄÚÈİ
-		 * Í¨¹ı»º³åÇø½«±¾´úÂëÎÄ¼ş¸´ÖÆµ½ÁíÍâÒ»¸öÎÄ¼şÖĞ£¬´øÉÏĞĞºÅ
-		 * Í¨¹ı»º³åÇø½«±¾´úÂëÎÄ¼ş´òÓ¡µ½¿ØÖÆÌ¨ÉÏ£¬´øÉÏĞĞºÅ
-		 */
-		//bufferedWriterMain();
-		bufferedReaderMain();
-	}
-	
-	public static void bufferedWriterMain() {
-		BufferedWriter bufw = null;
-		try {
-			/**
-			 * BufferedWriter¡¢BufferedReaderĞèÒª¹ØÁª¶Á²Ù×÷Á÷¡¢Ğ´²Ù×÷Á÷
-			 * ³£¼û¾ùÊ¹ÓÃ£ºBufferedWriter bufw = new BufferedWriter(new FileWriter("ÎÄ¼şÃû"));
-			 *			   BufferedReader bufr = new BufferedReader(new FileReader("ÎÄ¼şÃû"))
-			 * Ô­ÒòÔÚÓÚ£ºBuffered¶ÁĞ´£¬·â×°ÁËFile¶ÁĞ´µÄ·½·¨£¬¹Ø±ÕBuffered¶ÁĞ´ÊµÖÊÉÏ¾ÍÊÇ¹Ø±ÕFile¶ÁĞ´
-			 */
-			bufw = new BufferedWriter(new FileWriter("Buf.txt"));
-			bufw.write("abcde");
-			bufw.newLine();
-			bufw.write("ABCDE");
-			//Ë¢ĞÂĞ´»º³åÇø£¬Ïàµ±ÓÚ"¿ª"£¡
-			bufw.flush();
-		}
-		catch(IOException ioe) {
-			//´ı´¦Àí
-			sop("Catch:" + ioe.toString());
-		}
-		finally {
-			try {
-				if (null != bufw) {
-					bufw.close();
-				}
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				sop("Catch:ÎÄ¼şĞ´Èë¹Ø±ÕÊ§°Ü£¡" + ioe.toString());
-			}
-		}
-	}
+    public static void main(String[] args) {
+        /**
+         * BufferedDemo.javaæ–‡ä»¶è§£å†³é—®é¢˜ï¼š
+         * é€šè¿‡ç¼“å†²åŒºå†™å…¥æ–‡æœ¬å†…å®¹
+         * é€šè¿‡ç¼“å†²åŒºå°†æœ¬ä»£ç æ–‡ä»¶å¤åˆ¶åˆ°å¦å¤–ä¸€ä¸ªæ–‡ä»¶ä¸­ï¼Œå¸¦ä¸Šè¡Œå·
+         * é€šè¿‡ç¼“å†²åŒºå°†æœ¬ä»£ç æ–‡ä»¶æ‰“å°åˆ°æ§åˆ¶å°ä¸Šï¼Œå¸¦ä¸Šè¡Œå·
+         */
+        //bufferedWriterMain();
+        bufferedReaderMain();
+    }
 
-	public static void bufferedReaderMain() {
-		BufferedReader bufr = null;
-		BufferedWriter bufw = null;
-		try {
-			bufr = new BufferedReader(new FileReader("BufferedDemo.java"));
-			bufw = new BufferedWriter(new FileWriter("BUfferedDemo.txt"));
-			String line = null;
-			int i = 1;
-			while (null != (line = bufr.readLine())) {
-				bufw.write("[" + i + "]    " + line);
-				bufw.newLine();
-				bufw.flush();
-				sop("[" + i + "]    " + line);
-				i++;
-			}
-		}
-		catch(IOException ioe) {
-			//´ı´¦Àí
-			sop("Catch:" + ioe.toString());
-		}
-		finally {
-			try {
-				if (null != bufr) {
-					bufr.close();
-				}
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				sop("Catch:ÎÄ¼ş¶ÁÈ¡¹Ø±ÕÊ§°Ü£¡" + ioe.toString());
-			}
+    public static void bufferedWriterMain() {
+        BufferedWriter bufw = null;
+        try {
+            /**
+             * BufferedWriterã€BufferedReaderéœ€è¦å…³è”è¯»æ“ä½œæµã€å†™æ“ä½œæµ
+             * å¸¸è§å‡ä½¿ç”¨ï¼šBufferedWriter bufw = new BufferedWriter(new FileWriter("æ–‡ä»¶å"));
+             *			   BufferedReader bufr = new BufferedReader(new FileReader("æ–‡ä»¶å"))
+             * åŸå› åœ¨äºï¼šBufferedè¯»å†™ï¼Œå°è£…äº†Fileè¯»å†™çš„æ–¹æ³•ï¼Œå…³é—­Bufferedè¯»å†™å®è´¨ä¸Šå°±æ˜¯å…³é—­Fileè¯»å†™
+             */
+            bufw = new BufferedWriter(new FileWriter("Buf.txt"));
+            bufw.write("abcde");
+            bufw.newLine();
+            bufw.write("ABCDE");
+            //åˆ·æ–°å†™ç¼“å†²åŒºï¼Œç›¸å½“äº"å¼€"ï¼
+            bufw.flush();
+        } catch (IOException ioe) {
+            //å¾…å¤„ç†
+            sop("Catch:" + ioe.toString());
+        } finally {
+            try {
+                if (null != bufw) {
+                    bufw.close();
+                }
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                sop("Catch:æ–‡ä»¶å†™å…¥å…³é—­å¤±è´¥ï¼" + ioe.toString());
+            }
+        }
+    }
 
-			try {
-				if (null != bufw) {
-					bufw.close();
-				}
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				sop("CatchÎÄ¼şĞ´Èë¹Ø±ÕÊ§°Ü£¡" + ioe.toString());
-			}
-		}
-	}
+    public static void bufferedReaderMain() {
+        BufferedReader bufr = null;
+        BufferedWriter bufw = null;
+        try {
+            bufr = new BufferedReader(new FileReader("BufferedDemo.java"));
+            bufw = new BufferedWriter(new FileWriter("BUfferedDemo.txt"));
+            String line = null;
+            int i = 1;
+            while (null != (line = bufr.readLine())) {
+                bufw.write("[" + i + "]    " + line);
+                bufw.newLine();
+                bufw.flush();
+                sop("[" + i + "]    " + line);
+                i++;
+            }
+        } catch (IOException ioe) {
+            //å¾…å¤„ç†
+            sop("Catch:" + ioe.toString());
+        } finally {
+            try {
+                if (null != bufr) {
+                    bufr.close();
+                }
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                sop("Catch:æ–‡ä»¶è¯»å–å…³é—­å¤±è´¥ï¼" + ioe.toString());
+            }
 
-	public static void sop(Object obj) {
-		/**
-		 * ´òÓ¡×Ö·û´®
-		 * 
-		 */
-		System.out.println(obj);
-	}
+            try {
+                if (null != bufw) {
+                    bufw.close();
+                }
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                sop("Catchæ–‡ä»¶å†™å…¥å…³é—­å¤±è´¥ï¼" + ioe.toString());
+            }
+        }
+    }
 
-	public static void lineSplit() {
-		/**
-		 * ´òÓ¡·Ö¸ô·û
-		 * 
-		 */
-		sop("---------------------------");
-	}
+    public static void sop(Object obj) {
+        /**
+         * æ‰“å°å­—ç¬¦ä¸²
+         *
+         */
+        System.out.println(obj);
+    }
+
+    public static void lineSplit() {
+        /**
+         * æ‰“å°åˆ†éš”ç¬¦
+         *
+         */
+        sop("---------------------------");
+    }
 }

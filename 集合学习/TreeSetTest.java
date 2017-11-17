@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -111,43 +110,44 @@ d::14......PK......d::14
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
-import java.lang.Math;
+
+import java.util.Iterator;
+import java.util.TreeSet;
 
 class TreeSetTest {
-	public static void main(String[] args) {
-		/* TreeSetTest.java文件解决问题：
+    public static void main(String[] args) {
+        /* TreeSetTest.java文件解决问题：
 		*  往TreeSet中存储学生对象：
 		*		自动滤掉相同name和age学生
 		*		并按照年龄排序
 		*/
 
-		//测试代码块/////////////////////////////////////////
-		int ORDER_NUM = 0;
-		String ORDER_STR = "默认hashCode递增排序";
-		TreeSet ts = new TreeSet();
-		while ((ORDER_NUM++) != 3) {
-			ORDER_STR = orderModel(ORDER_NUM);
-			lineSplit();
-			sop("集合TreeSet-->ts添加元素过程详情如下：");
-			ts.add(new Student("a", 10, ORDER_NUM));
-			ts.add(new Student("b", 11, ORDER_NUM));
-			ts.add(new Student("b", 12, ORDER_NUM));
-			ts.add(new Student("a", 13, ORDER_NUM));
-			ts.add(new Student("d", 14, ORDER_NUM));
-			lineSplit();
-			sop("排序编号：" + (ORDER_NUM-1) + "-->" + ORDER_STR 
-				+ "\n集合TreeSet-->ts实际保存的Student元素如下：");
-			int i = 1;
-			for (Iterator<Student> it = ts.iterator(); it.hasNext(); i++) {
-				Student stu = it.next();
-				sop("\t[" + i + "]号："
-					+ "<Student.name = " + stu.getName() + ", "
-					+ "Student.age" + stu.getAge() + ">");
-			}	
-		}
-		lineSplit();
-		//////////////////////////////////////////////////////
+        //测试代码块/////////////////////////////////////////
+        int ORDER_NUM = 0;
+        String ORDER_STR = "默认hashCode递增排序";
+        TreeSet ts = new TreeSet();
+        while ((ORDER_NUM++) != 3) {
+            ORDER_STR = orderModel(ORDER_NUM);
+            lineSplit();
+            sop("集合TreeSet-->ts添加元素过程详情如下：");
+            ts.add(new Student("a", 10, ORDER_NUM));
+            ts.add(new Student("b", 11, ORDER_NUM));
+            ts.add(new Student("b", 12, ORDER_NUM));
+            ts.add(new Student("a", 13, ORDER_NUM));
+            ts.add(new Student("d", 14, ORDER_NUM));
+            lineSplit();
+            sop("排序编号：" + (ORDER_NUM - 1) + "-->" + ORDER_STR
+                    + "\n集合TreeSet-->ts实际保存的Student元素如下：");
+            int i = 1;
+            for (Iterator<Student> it = ts.iterator(); it.hasNext(); i++) {
+                Student stu = it.next();
+                sop("\t[" + i + "]号："
+                        + "<Student.name = " + stu.getName() + ", "
+                        + "Student.age" + stu.getAge() + ">");
+            }
+        }
+        lineSplit();
+        //////////////////////////////////////////////////////
 
 /*		TreeSet ts = new TreeSet();
 		//final int ORDER_NUM = 0;
@@ -167,87 +167,95 @@ class TreeSetTest {
 				+ "Student.age" + stu.getAge() + ">");
 		}
 		lineSplit();*/
-	}
-	
-	public static void sop(Object obj) {
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 
-	public static String orderModel(int orderNum) {
-		switch (orderNum) {
-		case 1:
-		    return "name递增排序";
-		    //break;
-		case 2:
-			return "age递增排序";
-		default:
-			return "默认hashCode递增排序";
-		}
-	}
+    public static String orderModel(int orderNum) {
+        switch (orderNum) {
+            case 1:
+                return "name递增排序";
+            //break;
+            case 2:
+                return "age递增排序";
+            default:
+                return "默认hashCode递增排序";
+        }
+    }
 }
 
 /**
  * Student实现Comparable接口，使得具备比较性
- * 
  */
 class Student implements Comparable {
-	private int orderNum = 0;
-	private String name;
-	private int age;
-	public Student() {}
-	public Student(String name, int age, int orderNum) {
-		//super();
-		this.name = name;
-		this.age  = age;
+    private int orderNum = 0;
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age, int orderNum) {
+        //super();
+        this.name = name;
+        this.age = age;
 		/* 强制限制排序模式的代表值
 		*  1.name自然(递增)排序
 		*  2.age自然(递增)排序
 		*  0.默认(父类Person，hashCode值)排序
 		*/
-		if ((1 != orderNum) &&
-			(2 != orderNum)) {
-		    this.orderNum = 0;
-		} else {
-			this.orderNum = orderNum;
-		}
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return this.name;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public int getAge() {
-		return this.age;
-	}
-	public int getOrderNum() {
-		return this.orderNum ;
-	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
-	}
-	
-	/* 实现Comparable接口
-	*  必须进行抽象public int compareTo()的具体实现
-	*  排序方式：ordernum :[0，1，2]
-	*  1.name递增排序
-	*  2.age递增排序
-	*  0.默认hashCode值递增排序
-	*/
-	public int compareTo(Object obj) {
+        if ((1 != orderNum) &&
+                (2 != orderNum)) {
+            this.orderNum = 0;
+        } else {
+            this.orderNum = orderNum;
+        }
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public int getOrderNum() {
+        return this.orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    /* 实现Comparable接口
+    *  必须进行抽象public int compareTo()的具体实现
+    *  排序方式：ordernum :[0，1，2]
+    *  1.name递增排序
+    *  2.age递增排序
+    *  0.默认hashCode值递增排序
+    */
+    public int compareTo(Object obj) {
 		/*if (!(obj instanceof Student)) {
 		    throw new RuntimeException("不是Student对象，无法比较!");
 		}
@@ -264,84 +272,85 @@ class Student implements Comparable {
 				return 0;
 			}
 		}*/
-		
-		if (!(obj instanceof Student)) {
-		    throw new RuntimeException("不是Student对象，无法比较!");
-		}
-		Student stu = (Student)obj;
-		switch (orderNum) {
-		case 1:
-		    return compareToName(stu);
-		    //break;
-		case 2:
-			return compareToAge(stu);
-			//break;
-		default:
-			return compareToDefault(stu);
-		}
-	}
 
-	public int compareToName(Object obj) {
-		if (!(obj instanceof Student)) {
-		    throw new RuntimeException("不是Student对象，无法比较!");
-		}
-		Student stu = (Student)obj;
-		System.out.println(this.getName() + "::" + this.getAge()
-						   + "......PK......"
-						   + stu.getName() + "::" + stu.getAge());
-		int temp = this.getName().compareTo(stu.getName());
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return this.getAge() - stu.getAge();
-		}
-	}
+        if (!(obj instanceof Student)) {
+            throw new RuntimeException("不是Student对象，无法比较!");
+        }
+        Student stu = (Student) obj;
+        switch (orderNum) {
+            case 1:
+                return compareToName(stu);
+            //break;
+            case 2:
+                return compareToAge(stu);
+            //break;
+            default:
+                return compareToDefault(stu);
+        }
+    }
 
-	public int compareToAge(Object obj) {
-		if (!(obj instanceof Student)) {
-		    throw new RuntimeException("不是Student对象，无法比较!");
-		}
-		Student stu = (Student)obj;
-		System.out.println(this.getName() + "::" + this.getAge()
-						   + "......PK......"
-						   + stu.getName() + "::" + stu.getAge());
-		int temp = this.getAge() - stu.getAge();
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return this.getName().compareTo(stu.getName());
-		}
-	}
+    public int compareToName(Object obj) {
+        if (!(obj instanceof Student)) {
+            throw new RuntimeException("不是Student对象，无法比较!");
+        }
+        Student stu = (Student) obj;
+        System.out.println(this.getName() + "::" + this.getAge()
+                + "......PK......"
+                + stu.getName() + "::" + stu.getAge());
+        int temp = this.getName().compareTo(stu.getName());
+        if (0 != temp) {
+            return temp;
+        } else {
+            return this.getAge() - stu.getAge();
+        }
+    }
 
-	public int compareToDefault(Object obj) {
-		if (!(obj instanceof Student)) {
-		    throw new RuntimeException("不是Student对象，无法比较!");
-		}
-		Student stu = (Student)obj;
-		System.out.println(this.getName() + "::" + this.getAge()
-						   + "......PK......"
-						   + stu.getName() + "::" + stu.getAge());
-		return this.hashCode() - stu.hashCode();
-	}
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Student)) {
-			//不建议：return false;
-			throw new RuntimeException("比较对象不是Student对象，无意义！");
-		}
-		//Person继承Object，因而obj可以向下转型
-		//如果obj不向下转型为Person对象，则obj没有name和age属性
-		Student stu = (Student)obj;
-		//name为字符串对象，有默认继承自Object的.equals(Object)方法
-		//字符串的.equal(Object obj)方法属于：父类引用指向子类对象，向上提升对象
-		return (this.name.equals(stu.name))
-				&& (this.age == stu.age);
-	}
+    public int compareToAge(Object obj) {
+        if (!(obj instanceof Student)) {
+            throw new RuntimeException("不是Student对象，无法比较!");
+        }
+        Student stu = (Student) obj;
+        System.out.println(this.getName() + "::" + this.getAge()
+                + "......PK......"
+                + stu.getName() + "::" + stu.getAge());
+        int temp = this.getAge() - stu.getAge();
+        if (0 != temp) {
+            return temp;
+        } else {
+            return this.getName().compareTo(stu.getName());
+        }
+    }
 
-	public int hashCode() {
+    public int compareToDefault(Object obj) {
+        if (!(obj instanceof Student)) {
+            throw new RuntimeException("不是Student对象，无法比较!");
+        }
+        Student stu = (Student) obj;
+        System.out.println(this.getName() + "::" + this.getAge()
+                + "......PK......"
+                + stu.getName() + "::" + stu.getAge());
+        return this.hashCode() - stu.hashCode();
+    }
+
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Student)) {
+            //不建议：return false;
+            throw new RuntimeException("比较对象不是Student对象，无意义！");
+        }
+        //Person继承Object，因而obj可以向下转型
+        //如果obj不向下转型为Person对象，则obj没有name和age属性
+        Student stu = (Student) obj;
+        //name为字符串对象，有默认继承自Object的.equals(Object)方法
+        //字符串的.equal(Object obj)方法属于：父类引用指向子类对象，向上提升对象
+        return (this.name.equals(stu.name))
+                && (this.age == stu.age);
+    }
+
+    public int hashCode() {
 		/* this.name为String对象，String.hashCode()由String对象内容唯一决定
 		*  据此，Person对象的name和age也能唯一决定其hashCode()返回值
 		*/
-		return (this.name.hashCode() + age);
-	}
-	
+        return (this.name.hashCode() + age);
+    }
+
 }

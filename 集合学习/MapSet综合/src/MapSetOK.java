@@ -1,7 +1,8 @@
 import java.util.*;
+
 class MapSetOK {
-	public static void main(String[] args) {
-		/* MapSet.java文件解决问题：
+    public static void main(String[] args) {
+        /* MapSet.java文件解决问题：
 		 * 优化MapTest.java代码
 		 * 将Set、Map的使用与区别细节全部展示
 		 * 创建标准的对象类StandardStudent，name 和 id作为内容属性
@@ -10,211 +11,211 @@ class MapSetOK {
 		 * 使用HashMap、TreeMap存储：<键 StandardStudent对象(name, id), 值 String>
 		 */
 
-		/**
-		 * 使用HashSet集合存储StandardStudent对象(name, id)
-		 * 显示HashSet集合存储元素，保证元素唯一性的过程，首先根据元素的.hashCode()计算哈希值
-		 * 元素对象默认.hashCode()方法计算的是元素对象的地址，因而忽略新建元素对象的内容属性
-		 * 若哈希值不同，根据元素的.equals()方法进行判断，内容相同则判定为重复，丢弃
-		 * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
-		 */
-		HashSet<StandardStudent> hs = new HashSet<StandardStudent>();
-		lineSplit();								//调用本类lineSplit()方法输出分隔符
-		sop("HashSet--hs集合存储元素过程如下：");	//调用本类sop()方法输出字符串
-		hs.add(new StandardStudent("A", 18));
-		hs.add(new StandardStudent("B", 18));
-		hs.add(new StandardStudent("C", 21));
-		hs.add(new StandardStudent("AA", 19));
-		hs.add(new StandardStudent("BB", 18));
-		hs.add(new StandardStudent("CF", 16));
-		hs.add(new StandardStudent("B", 18));
-		lineSplit();
-		sop("HashSet-->hs集合存储元素如下：");
-		setOut(hs);									//调用本类setOut()方法遍历输出Set集合
-		
-		/**
-		 * 使用TreeSet集合存储StandardStudent对象(name, id)
-		 * 显示TreeSet集合存储元素，保证元素唯一性的过程
-		 *		第一种：TreeSet不使用比较器的默认自然排序
-		 *				它的排序基准根本不会计算哈希值，而是使用底层compare方法：选择主因id，次因name
-		 *		第二种：TreeSet使用StandardStudent对象特有比较器StandardStudentComparator<StandardStudent>
-		 *				可选择的排序方式：[0:哈希值排序]	[1:name排序]	[2:id排序]
-		 *				与TreeMap默认自然排序方式所不同的是，比较器排序都会进行对象的.hashCode()方法计算哈希值
-		 * TreeSet通过迭代器输出时，属于直接输出(与TreeMap的Map.keySet()重复计算、判断输出有区别)
-		 * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
-		 */
-		TreeSet<StandardStudent> ts = new TreeSet<StandardStudent>();
-		sop("TreeSet-->ts集合自然排序存储元素的过程如下：");
-		ts.addAll(hs);										//将HashSet集合hs中的元素全部添加到TreeSet集合ts中
-		sop("TreeSet-->ts集合自然排序元素如下：");
-		setOut(ts);
+        /**
+         * 使用HashSet集合存储StandardStudent对象(name, id)
+         * 显示HashSet集合存储元素，保证元素唯一性的过程，首先根据元素的.hashCode()计算哈希值
+         * 元素对象默认.hashCode()方法计算的是元素对象的地址，因而忽略新建元素对象的内容属性
+         * 若哈希值不同，根据元素的.equals()方法进行判断，内容相同则判定为重复，丢弃
+         * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
+         */
+        HashSet<StandardStudent> hs = new HashSet<StandardStudent>();
+        lineSplit();                                //调用本类lineSplit()方法输出分隔符
+        sop("HashSet--hs集合存储元素过程如下：");    //调用本类sop()方法输出字符串
+        hs.add(new StandardStudent("A", 18));
+        hs.add(new StandardStudent("B", 18));
+        hs.add(new StandardStudent("C", 21));
+        hs.add(new StandardStudent("AA", 19));
+        hs.add(new StandardStudent("BB", 18));
+        hs.add(new StandardStudent("CF", 16));
+        hs.add(new StandardStudent("B", 18));
+        lineSplit();
+        sop("HashSet-->hs集合存储元素如下：");
+        setOut(hs);                                    //调用本类setOut()方法遍历输出Set集合
 
-		TreeSet<StandardStudent> ts0 = new TreeSet<StandardStudent>(
-												 new StandardStudentComparator(0));
-		sop("TreeSet-->ts0集合哈希值排序存储元素的过程如下：");
-		ts0.addAll(hs);
-		lineSplit();
-		sop("TreeSet-->ts0集合哈希值排序元素如下：");
-		setOut(ts0);
+        /**
+         * 使用TreeSet集合存储StandardStudent对象(name, id)
+         * 显示TreeSet集合存储元素，保证元素唯一性的过程
+         *		第一种：TreeSet不使用比较器的默认自然排序
+         *				它的排序基准根本不会计算哈希值，而是使用底层compare方法：选择主因id，次因name
+         *		第二种：TreeSet使用StandardStudent对象特有比较器StandardStudentComparator<StandardStudent>
+         *				可选择的排序方式：[0:哈希值排序]	[1:name排序]	[2:id排序]
+         *				与TreeMap默认自然排序方式所不同的是，比较器排序都会进行对象的.hashCode()方法计算哈希值
+         * TreeSet通过迭代器输出时，属于直接输出(与TreeMap的Map.keySet()重复计算、判断输出有区别)
+         * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
+         */
+        TreeSet<StandardStudent> ts = new TreeSet<StandardStudent>();
+        sop("TreeSet-->ts集合自然排序存储元素的过程如下：");
+        ts.addAll(hs);                                        //将HashSet集合hs中的元素全部添加到TreeSet集合ts中
+        sop("TreeSet-->ts集合自然排序元素如下：");
+        setOut(ts);
 
-		TreeSet<StandardStudent> ts1 = new TreeSet<StandardStudent>(
-												 new StandardStudentComparator(1));
-		sop("TreeSet-->ts1集合name排序存储元素的过程如下：");
-		ts1.addAll(hs);
-		lineSplit();
-		sop("TreeSet-->ts1集合name排序元素如下：");
-		setOut(ts1);
-		TreeSet<StandardStudent> ts2 = new TreeSet<StandardStudent>(
-												 new StandardStudentComparator(2));
-		sop("TreeSet-->ts2集合存储元素的过程如下：");
-		ts2.addAll(hs);
-		lineSplit();
-		sop("TreeSet-->ts2集合id排序元素如下：");
-		setOut(ts2);
+        TreeSet<StandardStudent> ts0 = new TreeSet<StandardStudent>(
+                new StandardStudentComparator(0));
+        sop("TreeSet-->ts0集合哈希值排序存储元素的过程如下：");
+        ts0.addAll(hs);
+        lineSplit();
+        sop("TreeSet-->ts0集合哈希值排序元素如下：");
+        setOut(ts0);
 
-		/**
-		 * 使用HashMap存储<StandardStudent, String>关系对象，StandardStudent有name和id两个属性
-		 * 使用Map.put()方法添加关系对象元素，并验证了[键相同时]，后进来的元素会覆盖旧元素的[值]
-		 *	   同时，Map.put()方法会返回元素被覆盖的[值]，如未被覆盖，返回null
-		 * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
-		 *		 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
-		 *		 用StandardStudent对象的哈希值代表键
-		 * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
-		 *		 在输出时同上
-		 * 显示HashMap存储关系元素时的过程，首先根据键(StandardStudent对象)调用.hashCode()方法计算哈希值
-		 * 若哈希值相同，再调用.equals()方法判定元素是否重复
-		 *
-		 * HashMap与HashSet的联系与区别：HashSet是用HashMap实现的，HashMap只取键即为HashSet
-		 * 因而HashMap与HashSet的特性基本相似，但是HashMap有其独特特点：
-		 * 遍历HashMap有Map.keySet()和Map.entry()两种方式，二者的区别是：
-		 *				Map.keySet()根据键会计算再次调用.hashCode()方法计算哈希值
-		 *			  而Map.entry()不会再次计算哈希值，因而要高效和实用些
-		 */
-		HashMap<StandardStudent, String> hm = new HashMap<StandardStudent, String>();
-		sop("HashMap--hm集合存储元素过程如下：");
-		hm.put(new StandardStudent("A", 18), "北京");
-		hm.put(new StandardStudent("B", 18), "武汉");
-		hm.put(new StandardStudent("C", 21), "深圳");
-		hm.put(new StandardStudent("AA", 19), "广州");
-		hm.put(new StandardStudent("BB", 18), "杭州");
-		hm.put(new StandardStudent("CF", 16), "成都");
-		hm.put(new StandardStudent("B", 18), "NO武汉");		//与第二个键重复
-		lineSplit();
-		mapOut(hm, "HashMap");
+        TreeSet<StandardStudent> ts1 = new TreeSet<StandardStudent>(
+                new StandardStudentComparator(1));
+        sop("TreeSet-->ts1集合name排序存储元素的过程如下：");
+        ts1.addAll(hs);
+        lineSplit();
+        sop("TreeSet-->ts1集合name排序元素如下：");
+        setOut(ts1);
+        TreeSet<StandardStudent> ts2 = new TreeSet<StandardStudent>(
+                new StandardStudentComparator(2));
+        sop("TreeSet-->ts2集合存储元素的过程如下：");
+        ts2.addAll(hs);
+        lineSplit();
+        sop("TreeSet-->ts2集合id排序元素如下：");
+        setOut(ts2);
 
-		/**
-		 * 使用TreeMap存储<StandardStudent, String>关系对象，StandardStudent有name和id两个属性
-		 * TreeMap有默认自然排序和比较器排序，默认自然排序根本不会计算哈希值，而比较器排序都会计算哈希值
-		 * TreeMap与TreeSet的联系和区别：
-		 *			TreeSet底层由TreeMap实现，TreeMap只取键即为TreeSet
-		 *		  而遍历TreeMap有Map.keySet()和Map.entry()两种方式
-		 *						 Map.keySet()根据键会再次计算哈希值，并逐一调用compare方法进行比较
-		 *					   而Map.entry()则不会再次计算哈希值，也不会调用compare方法逐一比较
-		 * 并且使用StandardStudentComparator比较器，设定：
-		 *		   [0:哈希值排序]		[1:name排序]		[2.id排序]
-		 * 分别创建TreeMpa集合：tm0，tm1，tm2完成3种排序方式的测试
-		 * 此外，对于tm1的测试，在输出时采用Map.keySet()和Map.entry()方式输出
-		 *	     发现：Map.keySet()获取键key的值value时，会逐一比较TreeMap集合中的键，即会自动调用compare(T t1, T t2)方法
-		 *		     而Map.entrySet()则不会进行比较，其实现方式暂不详
-		 * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
-		 *		 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
-		 *		 用StandardStudent对象的哈希值代表键
-		 * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
-		 *		 在输出时同上
-		 */
-		TreeMap<StandardStudent, String> tm = new TreeMap<StandardStudent, String>();
-		sop("TreeMap-->tm集合存储元素的过程如下：");
-		tm.putAll(hm);
-		lineSplit();
-		mapOut(tm, "TreeMap");
-		TreeMap<StandardStudent, String> tm0 = new TreeMap<StandardStudent, String>
-													     (new StandardStudentComparator(0));
-		sop("TreeMap-->tm0集合存储元素的过程如下：");
-		tm0.putAll(hm);
-		lineSplit();
-		mapOut(tm0, "TreeMap");
-		TreeMap<StandardStudent, String> tm1 = new TreeMap<StandardStudent, String>
-													     (new StandardStudentComparator(1));
-		sop("TreeMap-->tm1集合存储元素的过程如下：");
-		tm1.putAll(hm);
-		lineSplit();
-		mapOut(tm1, "TreeMap");
-		TreeMap<StandardStudent, String> tm2 = new TreeMap<StandardStudent, String>
-													     (new StandardStudentComparator(2));
-		sop("TreeMap-->tm2集合存储元素的过程如下：");
-		tm2.putAll(hm);
-		lineSplit();
-		mapOut(tm2, "TreeMap");
-	}
+        /**
+         * 使用HashMap存储<StandardStudent, String>关系对象，StandardStudent有name和id两个属性
+         * 使用Map.put()方法添加关系对象元素，并验证了[键相同时]，后进来的元素会覆盖旧元素的[值]
+         *	   同时，Map.put()方法会返回元素被覆盖的[值]，如未被覆盖，返回null
+         * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
+         *		 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
+         *		 用StandardStudent对象的哈希值代表键
+         * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
+         *		 在输出时同上
+         * 显示HashMap存储关系元素时的过程，首先根据键(StandardStudent对象)调用.hashCode()方法计算哈希值
+         * 若哈希值相同，再调用.equals()方法判定元素是否重复
+         *
+         * HashMap与HashSet的联系与区别：HashSet是用HashMap实现的，HashMap只取键即为HashSet
+         * 因而HashMap与HashSet的特性基本相似，但是HashMap有其独特特点：
+         * 遍历HashMap有Map.keySet()和Map.entry()两种方式，二者的区别是：
+         *				Map.keySet()根据键会计算再次调用.hashCode()方法计算哈希值
+         *			  而Map.entry()不会再次计算哈希值，因而要高效和实用些
+         */
+        HashMap<StandardStudent, String> hm = new HashMap<StandardStudent, String>();
+        sop("HashMap--hm集合存储元素过程如下：");
+        hm.put(new StandardStudent("A", 18), "北京");
+        hm.put(new StandardStudent("B", 18), "武汉");
+        hm.put(new StandardStudent("C", 21), "深圳");
+        hm.put(new StandardStudent("AA", 19), "广州");
+        hm.put(new StandardStudent("BB", 18), "杭州");
+        hm.put(new StandardStudent("CF", 16), "成都");
+        hm.put(new StandardStudent("B", 18), "NO武汉");        //与第二个键重复
+        lineSplit();
+        mapOut(hm, "HashMap");
 
-	/**
-	 * TreeSet通过迭代器输出时，属于直接输出(与TreeMap的Map.keySet()重复计算、判断输出有区别)
-	 * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
-	 */
-	public static void setOut(Set<StandardStudent> set){
-		int i = 1;
-		for (Iterator<StandardStudent> it = set.iterator(); it.hasNext(); i++) {
-			StandardStudent stdStu = it.next();
-			sopt("(非自动调用)在输出元素时for循环主动调用：");
-			int hashCode = stdStu.hashCode();
-			sop("第[" + i + "]个元素：" + "元素哈希值hashCode = " + hashCode + ", "
-				+ "属性(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
-		}
-		lineSplit();
-	}
-	
-	/**
-	 * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
-	 *		 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
-	 *		 用StandardStudent对象的哈希值代表键
-	 * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
-	 *		 在输出时同上
-	 */
-	public static void mapOut(Map<StandardStudent, String> map, String nameMap) {
-		int i = 1;
-		sop("使用Map.keySet()方式获取" + nameMap + "存储的" + map.size() + "个元素如下：");
-		for(Iterator<StandardStudent> it = map.keySet().iterator(); it.hasNext(); i++) {
-			StandardStudent stdStu = it.next();
-			sopt("(非自动调用)在输出元素时for循环主动调用：");
-			int hashCode = stdStu.hashCode();
-			sop("第[" + i + "]个元素：" + "<键 hashCode = " + hashCode
-				+ ", 值 addressString = " + map.get(stdStu) + ">"
-				+ "\n\t键(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
-		}
-		lineSplit();
-		sop("使用Map.EntrySet()方式获取" + nameMap + "存储的" + map.size() + "个元素如下：");
-		i = 1;
-		for (Iterator<Map.Entry<StandardStudent, String>> entry = map.entrySet().iterator(); entry.hasNext(); i++) {
-			Map.Entry<StandardStudent, String> me = entry.next();
-			StandardStudent stdStu = me.getKey();
-			sopt("(非自动调用)在输出元素时for循环主动调用：");
-			int hashCode = stdStu.hashCode();
-			sop("第[" + i + "]个元素：" + "<键 hashCode = " + hashCode
-				+ ", 值 addressString = " + me.getValue() + ">"
-				+ "\n\t键(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
-		}
-		lineSplit();
-	}
+        /**
+         * 使用TreeMap存储<StandardStudent, String>关系对象，StandardStudent有name和id两个属性
+         * TreeMap有默认自然排序和比较器排序，默认自然排序根本不会计算哈希值，而比较器排序都会计算哈希值
+         * TreeMap与TreeSet的联系和区别：
+         *			TreeSet底层由TreeMap实现，TreeMap只取键即为TreeSet
+         *		  而遍历TreeMap有Map.keySet()和Map.entry()两种方式
+         *						 Map.keySet()根据键会再次计算哈希值，并逐一调用compare方法进行比较
+         *					   而Map.entry()则不会再次计算哈希值，也不会调用compare方法逐一比较
+         * 并且使用StandardStudentComparator比较器，设定：
+         *		   [0:哈希值排序]		[1:name排序]		[2.id排序]
+         * 分别创建TreeMpa集合：tm0，tm1，tm2完成3种排序方式的测试
+         * 此外，对于tm1的测试，在输出时采用Map.keySet()和Map.entry()方式输出
+         *	     发现：Map.keySet()获取键key的值value时，会逐一比较TreeMap集合中的键，即会自动调用compare(T t1, T t2)方法
+         *		     而Map.entrySet()则不会进行比较，其实现方式暂不详
+         * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
+         *		 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
+         *		 用StandardStudent对象的哈希值代表键
+         * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
+         *		 在输出时同上
+         */
+        TreeMap<StandardStudent, String> tm = new TreeMap<StandardStudent, String>();
+        sop("TreeMap-->tm集合存储元素的过程如下：");
+        tm.putAll(hm);
+        lineSplit();
+        mapOut(tm, "TreeMap");
+        TreeMap<StandardStudent, String> tm0 = new TreeMap<StandardStudent, String>
+                (new StandardStudentComparator(0));
+        sop("TreeMap-->tm0集合存储元素的过程如下：");
+        tm0.putAll(hm);
+        lineSplit();
+        mapOut(tm0, "TreeMap");
+        TreeMap<StandardStudent, String> tm1 = new TreeMap<StandardStudent, String>
+                (new StandardStudentComparator(1));
+        sop("TreeMap-->tm1集合存储元素的过程如下：");
+        tm1.putAll(hm);
+        lineSplit();
+        mapOut(tm1, "TreeMap");
+        TreeMap<StandardStudent, String> tm2 = new TreeMap<StandardStudent, String>
+                (new StandardStudentComparator(2));
+        sop("TreeMap-->tm2集合存储元素的过程如下：");
+        tm2.putAll(hm);
+        lineSplit();
+        mapOut(tm2, "TreeMap");
+    }
 
-	public static void sop(Object obj) {
+    /**
+     * TreeSet通过迭代器输出时，属于直接输出(与TreeMap的Map.keySet()重复计算、判断输出有区别)
+     * 使用泛型迭代器：Iterator<StandardStudent> it = Set.iterator()迭代输出集合元素
+     */
+    public static void setOut(Set<StandardStudent> set) {
+        int i = 1;
+        for (Iterator<StandardStudent> it = set.iterator(); it.hasNext(); i++) {
+            StandardStudent stdStu = it.next();
+            sopt("(非自动调用)在输出元素时for循环主动调用：");
+            int hashCode = stdStu.hashCode();
+            sop("第[" + i + "]个元素：" + "元素哈希值hashCode = " + hashCode + ", "
+                    + "属性(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
+        }
+        lineSplit();
+    }
+
+    /**
+     * 使用Iterator<StandardStudent> it = Map.keySet().iterator()，方式获取Map集合[键的序列]迭代器
+     * 在输出时，由于键是StandardStudent对象，使用该对象的hashCode()成员方法获取哈希值
+     * 用StandardStudent对象的哈希值代表键
+     * 使用Iterator<Map.Entry<StandardStudent, String>> entry = Map.entry().iterator()，方式获取Map集合[关系]的迭代器
+     * 在输出时同上
+     */
+    public static void mapOut(Map<StandardStudent, String> map, String nameMap) {
+        int i = 1;
+        sop("使用Map.keySet()方式获取" + nameMap + "存储的" + map.size() + "个元素如下：");
+        for (Iterator<StandardStudent> it = map.keySet().iterator(); it.hasNext(); i++) {
+            StandardStudent stdStu = it.next();
+            sopt("(非自动调用)在输出元素时for循环主动调用：");
+            int hashCode = stdStu.hashCode();
+            sop("第[" + i + "]个元素：" + "<键 hashCode = " + hashCode
+                    + ", 值 addressString = " + map.get(stdStu) + ">"
+                    + "\n\t键(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
+        }
+        lineSplit();
+        sop("使用Map.EntrySet()方式获取" + nameMap + "存储的" + map.size() + "个元素如下：");
+        i = 1;
+        for (Iterator<Map.Entry<StandardStudent, String>> entry = map.entrySet().iterator(); entry.hasNext(); i++) {
+            Map.Entry<StandardStudent, String> me = entry.next();
+            StandardStudent stdStu = me.getKey();
+            sopt("(非自动调用)在输出元素时for循环主动调用：");
+            int hashCode = stdStu.hashCode();
+            sop("第[" + i + "]个元素：" + "<键 hashCode = " + hashCode
+                    + ", 值 addressString = " + me.getValue() + ">"
+                    + "\n\t键(name = " + stdStu.getName() + ", id = " + stdStu.getId() + ")");
+        }
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		 * 带换行
 		 */
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void sopt(Object obj) {
+    public static void sopt(Object obj) {
 		/* 打印字符串
 		 * 不带换行
 		 */
-		System.out.print(obj);
-	}
+        System.out.print(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		 * 
 		 */
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 /**
@@ -229,78 +230,85 @@ class MapSetOK {
  */
 class StandardStudent implements Comparable<StandardStudent> {
     private String name;
-	private int id;
-	public StandardStudent() {}
-	public StandardStudent(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return this.name;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+    private int id;
 
-	public int getId() {
-		return this.id;
-	}
-	/**
-	 * 实现Comparable<T t>接口，需要覆盖public int compareTo(T t)抽象方法
-	 * 返回值是：this.get排序主因子() - t.get排序主因子()，是个int型数据
-	 * 排序主因子相同，比较次因子，以此类推，直到所有因子的内容都相同，判定对象相同
-	 * return 0;自动过滤重复对象
-	 *
-	 * 与某个比较器类实现比较器Comparator<T t>的区别，需要覆盖public int compare(T t1, T t2)
-	 */
-	public int compareTo(StandardStudent stdStu) {
-		int temp = this.getId() - stdStu.getId();
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return this.getName().compareTo(stdStu.getName());
-		}
-	}
+    public StandardStudent() {
+    }
 
-	/**
-	 * 本类对象的hashCode值由对象的内容属性决定
-	 * 具体计算方法为：name.hashCode() + id * 50;
-	 */
-	public int hashCode() {
-		System.out.println("(name = " + this.getName() + ", "
-						   + "id = " +this.getId() + ")前来计算哈希值");
-		return this.getName().hashCode() + this.getId() * 5;
-	}
+    public StandardStudent(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-	/**
-	 * 当新的本类对象与先前的本类对象hashCode值相同
-	 *		举例：name = "A" id = 40 -->hashCode值 = 65 + 40 * 5
-	 *			  name = "F" id = 39 -->hashCode值 = (65+5) + (40-1) * 5 = 65 + 40 * 5
-	 * 此时，应加强判断，判断两对象的内容属性，是否完全一样，如果完全一样，返回false自动过滤
-	 * 如果不同，返回true
-	 */
-	public boolean equals(Object obj) {
-		if (!(obj instanceof StandardStudent)) {
-			throw new RuntimeException("不是StandardStudent对象，无法比较！");
-		}
-		StandardStudent stdStu = (StandardStudent)obj;
-		/**
-		 * 编程易犯错误：字符串比较str1.compareTo(str2)
-		 *						   返回的int型数据：为1代表后来的比先来的大
-		 *											为-1代表后来的比先来的小
-		 *											为0代表后来的与先来的"字符串"同名，即字符串内容相同
-		 *				而字符串判断str1.equals(str2)
-		 *						   返回的是boolean型数据，为true代表后来的和先来的"字符串"同名，即字符串内容相同
-		 *												  为false代表后来的和先来的"字符串"内容不相同
-		 */
-		 System.out.println("后辈(name = " + this.getName() + ", " + "id = " + this.getId() + ")"
-							+ "....PK...." 
-							+ "先辈(name = " + stdStu.getName() + ", " + "id = " + stdStu.getId() + ")");
-		return (this.getName().equals(stdStu.getName())) && (this.getId() == stdStu.getId());
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * 实现Comparable<T t>接口，需要覆盖public int compareTo(T t)抽象方法
+     * 返回值是：this.get排序主因子() - t.get排序主因子()，是个int型数据
+     * 排序主因子相同，比较次因子，以此类推，直到所有因子的内容都相同，判定对象相同
+     * return 0;自动过滤重复对象
+     * <p>
+     * 与某个比较器类实现比较器Comparator<T t>的区别，需要覆盖public int compare(T t1, T t2)
+     */
+    public int compareTo(StandardStudent stdStu) {
+        int temp = this.getId() - stdStu.getId();
+        if (0 != temp) {
+            return temp;
+        } else {
+            return this.getName().compareTo(stdStu.getName());
+        }
+    }
+
+    /**
+     * 本类对象的hashCode值由对象的内容属性决定
+     * 具体计算方法为：name.hashCode() + id * 50;
+     */
+    public int hashCode() {
+        System.out.println("(name = " + this.getName() + ", "
+                + "id = " + this.getId() + ")前来计算哈希值");
+        return this.getName().hashCode() + this.getId() * 5;
+    }
+
+    /**
+     * 当新的本类对象与先前的本类对象hashCode值相同
+     * 举例：name = "A" id = 40 -->hashCode值 = 65 + 40 * 5
+     * name = "F" id = 39 -->hashCode值 = (65+5) + (40-1) * 5 = 65 + 40 * 5
+     * 此时，应加强判断，判断两对象的内容属性，是否完全一样，如果完全一样，返回false自动过滤
+     * 如果不同，返回true
+     */
+    public boolean equals(Object obj) {
+        if (!(obj instanceof StandardStudent)) {
+            throw new RuntimeException("不是StandardStudent对象，无法比较！");
+        }
+        StandardStudent stdStu = (StandardStudent) obj;
+        /**
+         * 编程易犯错误：字符串比较str1.compareTo(str2)
+         *						   返回的int型数据：为1代表后来的比先来的大
+         *											为-1代表后来的比先来的小
+         *											为0代表后来的与先来的"字符串"同名，即字符串内容相同
+         *				而字符串判断str1.equals(str2)
+         *						   返回的是boolean型数据，为true代表后来的和先来的"字符串"同名，即字符串内容相同
+         *												  为false代表后来的和先来的"字符串"内容不相同
+         */
+        System.out.println("后辈(name = " + this.getName() + ", " + "id = " + this.getId() + ")"
+                + "....PK...."
+                + "先辈(name = " + stdStu.getName() + ", " + "id = " + stdStu.getId() + ")");
+        return (this.getName().equals(stdStu.getName())) && (this.getId() == stdStu.getId());
+    }
 }
 
 /**
@@ -313,86 +321,91 @@ class StandardStudent implements Comparable<StandardStudent> {
  */
 
 class StandardStudentComparator implements Comparator<StandardStudent> {
-    private static int ORDER_NUM = 0;	//最终设计为static final int
-	public StandardStudentComparator() {}
-	public StandardStudentComparator(int order_num) {
-		//super();
-		//构造函数执行时，确定排序模式值：ORDER_NUM
-		StandardStudentComparator.ORDER_NUM = order_num;		//因为ORDER_NUM为静态变量，因而不要使用this
-	}
-	public static int getOrderNum() {
-		return StandardStudentComparator.ORDER_NUM;				//因为ORDER_NUM为静态变量，因而不要使用this
-	}
-	public void setOrderNum(int order_num) {
-		StandardStudentComparator.ORDER_NUM = order_num;
-	}
-	
+    private static int ORDER_NUM = 0;    //最终设计为static final int
+
+    public StandardStudentComparator() {
+    }
+
+    public StandardStudentComparator(int order_num) {
+        //super();
+        //构造函数执行时，确定排序模式值：ORDER_NUM
+        StandardStudentComparator.ORDER_NUM = order_num;        //因为ORDER_NUM为静态变量，因而不要使用this
+    }
+
+    public static int getOrderNum() {
+        return StandardStudentComparator.ORDER_NUM;                //因为ORDER_NUM为静态变量，因而不要使用this
+    }
+
+    public void setOrderNum(int order_num) {
+        StandardStudentComparator.ORDER_NUM = order_num;
+    }
+
     public int compare(StandardStudent stdStu1, StandardStudent stdStu2) {
-		/**
-		 * ORDER_NUM = 1;代表name递增排序，自动过滤内容重复的对象
-		 * ORDER_NUM = 2;代表id递增排序，自动过滤内容重复的对象
-		 * ORDER_NUM = 0(或者其他非1非2的整型数值);
-		 *				代表hashCode值唯一排序，只要hashCode值相同，就按照id递增排序
-		 */
+        /**
+         * ORDER_NUM = 1;代表name递增排序，自动过滤内容重复的对象
+         * ORDER_NUM = 2;代表id递增排序，自动过滤内容重复的对象
+         * ORDER_NUM = 0(或者其他非1非2的整型数值);
+         *				代表hashCode值唯一排序，只要hashCode值相同，就按照id递增排序
+         */
 
-		switch (StandardStudentComparator.getOrderNum()) {
-		case 1:
-		    return compareToName(stdStu1, stdStu2);
-		case 2:
-			return compareToId(stdStu1, stdStu2);
-		default:
-			return compareToDefault(stdStu1, stdStu2);
-		}
-	}
+        switch (StandardStudentComparator.getOrderNum()) {
+            case 1:
+                return compareToName(stdStu1, stdStu2);
+            case 2:
+                return compareToId(stdStu1, stdStu2);
+            default:
+                return compareToDefault(stdStu1, stdStu2);
+        }
+    }
 
-	public int compareToName(StandardStudent stdStu1, StandardStudent stdStu2) {
-		sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
-			+ "......PK......"
-			+ "先辈" + stdStu2.getName() + "::" + stdStu2.getId());
-		int temp = stdStu1.getName().compareTo(stdStu2.getName());
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stdStu1.getId() - stdStu2.getId();
-		}
-	}
+    public int compareToName(StandardStudent stdStu1, StandardStudent stdStu2) {
+        sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
+                + "......PK......"
+                + "先辈" + stdStu2.getName() + "::" + stdStu2.getId());
+        int temp = stdStu1.getName().compareTo(stdStu2.getName());
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stdStu1.getId() - stdStu2.getId();
+        }
+    }
 
-	public int compareToId(StandardStudent stdStu1, StandardStudent stdStu2) {
-		sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
-			+ "......PK......"
-			+ "先辈" + stdStu2.getName() + "::" + stdStu2.getId());
-		int temp = stdStu1.getId() - stdStu2.getId();
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stdStu1.getName().compareTo(stdStu2.getName());
-		}
-	}
+    public int compareToId(StandardStudent stdStu1, StandardStudent stdStu2) {
+        sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
+                + "......PK......"
+                + "先辈" + stdStu2.getName() + "::" + stdStu2.getId());
+        int temp = stdStu1.getId() - stdStu2.getId();
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stdStu1.getName().compareTo(stdStu2.getName());
+        }
+    }
 
-	public int compareToDefault(StandardStudent stdStu1, StandardStudent stdStu2) {
-		/**
-		 * StandardStudent类已经复写.hashCode()方法和.equals()方法
-		 * 此处按照哈希值唯一进行递增排序
-		 * 即如果StandardStudent对象不使用比较器，那么它能进行hashCode值排序
-		 *						hashCode值相同，判断内容是否相等，相等判定重复，自动过滤，否则保存
-		 * 如果使用了本比较器的hashCode值排序，起到一样的效果
-		 */
-		sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
-			+ "：：哈希值：：" + stdStu1.hashCode()
-			+ "......PK......"
-			+ "先辈" + stdStu2.getName() + "::" + stdStu2.getId()
-			+ "：：哈希值：：" + stdStu2.hashCode());
-		int temp = stdStu1.hashCode() - stdStu2.hashCode();
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stdStu1.getId() - stdStu2.getId();
-		}
-	}
-	
-	public void sop(Object obj) {
-		System.out.println(obj);
-	}
+    public int compareToDefault(StandardStudent stdStu1, StandardStudent stdStu2) {
+        /**
+         * StandardStudent类已经复写.hashCode()方法和.equals()方法
+         * 此处按照哈希值唯一进行递增排序
+         * 即如果StandardStudent对象不使用比较器，那么它能进行hashCode值排序
+         *						hashCode值相同，判断内容是否相等，相等判定重复，自动过滤，否则保存
+         * 如果使用了本比较器的hashCode值排序，起到一样的效果
+         */
+        sop("后辈" + stdStu1.getName() + "::" + stdStu1.getId()
+                + "：：哈希值：：" + stdStu1.hashCode()
+                + "......PK......"
+                + "先辈" + stdStu2.getName() + "::" + stdStu2.getId()
+                + "：：哈希值：：" + stdStu2.hashCode());
+        int temp = stdStu1.hashCode() - stdStu2.hashCode();
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stdStu1.getId() - stdStu2.getId();
+        }
+    }
+
+    public void sop(Object obj) {
+        System.out.println(obj);
+    }
 }
 
 /*****************************************/

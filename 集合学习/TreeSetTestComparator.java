@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -96,10 +95,13 @@ set：其方法与Collection一致
 请按任意键继续. . .
 */
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.TreeSet;
+
 class TreeSetTestComparator {
-	public static void main(String[] args) {
-		/* TreeSetComparator.java文件解决问题：
+    public static void main(String[] args) {
+        /* TreeSetComparator.java文件解决问题：
 		 * StudentTwo对象自身未设定比较规则
 		 * 1.以name递增排序
 		 *		   同name，以age递增排序
@@ -108,92 +110,93 @@ class TreeSetTestComparator {
 		 * 3.以name和age计算的hashCode值递增排序
 		 *		   计算方法：name.hashCode() + age;
 		 */
-		int ORDER_NUM = 0;
-		String ORDER_STR = "默认hashCode递增排序";
-		TreeSet ts;
-		while((ORDER_NUM++) < 3) {
-			ts = new TreeSet(new StudentComparator(ORDER_NUM-1));
-			ORDER_STR = orderModel(ORDER_NUM-1);
-			lineSplit();
-			sop("集合TreeSet-->ts添加元素过程详情如下：");
-			ts.add(new StudentTwo("AK47", 10));
-			ts.add(new StudentTwo("AK44", 16));
-			ts.add(new StudentTwo("AK47", 16));
-			ts.add(new StudentTwo("AK47", 10));
-			lineSplit();
-			sop("排序编号：" + (ORDER_NUM-1) + "-->" + ORDER_STR 
-				+ "\n集合TreeSet-->ts实际保存的Student元素如下：");
-			int i = 1;
-			for (Iterator<StudentTwo> it = ts.iterator(); it.hasNext(); i++) {
-				StudentTwo stut = it.next();
-				sop("\t[" + i + "]号："
-					+ "<Student.name = " + stut.getName() + ", "
-					+ "Student.age" + stut.getAge() + ">");
-			}
-		}
-		lineSplit();
-	}
+        int ORDER_NUM = 0;
+        String ORDER_STR = "默认hashCode递增排序";
+        TreeSet ts;
+        while ((ORDER_NUM++) < 3) {
+            ts = new TreeSet(new StudentComparator(ORDER_NUM - 1));
+            ORDER_STR = orderModel(ORDER_NUM - 1);
+            lineSplit();
+            sop("集合TreeSet-->ts添加元素过程详情如下：");
+            ts.add(new StudentTwo("AK47", 10));
+            ts.add(new StudentTwo("AK44", 16));
+            ts.add(new StudentTwo("AK47", 16));
+            ts.add(new StudentTwo("AK47", 10));
+            lineSplit();
+            sop("排序编号：" + (ORDER_NUM - 1) + "-->" + ORDER_STR
+                    + "\n集合TreeSet-->ts实际保存的Student元素如下：");
+            int i = 1;
+            for (Iterator<StudentTwo> it = ts.iterator(); it.hasNext(); i++) {
+                StudentTwo stut = it.next();
+                sop("\t[" + i + "]号："
+                        + "<Student.name = " + stut.getName() + ", "
+                        + "Student.age" + stut.getAge() + ">");
+            }
+        }
+        lineSplit();
+    }
 
-	public static String orderModel(int orderNum) {
-		switch (orderNum) {
-		case 1:
-		    return "name递增排序";
-		    //break;
-		case 2:
-			return "age递增排序";
-		default:
-			return "默认hashCode递增排序";
-		}
-	}
+    public static String orderModel(int orderNum) {
+        switch (orderNum) {
+            case 1:
+                return "name递增排序";
+            //break;
+            case 2:
+                return "age递增排序";
+            default:
+                return "默认hashCode递增排序";
+        }
+    }
 
-	public static void sop(Object obj) {
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 /**
  * StudentTwo.class文件与本主类文件TreeSetComparator.class在同一目录
  * 因而无须再重复定义
  * 如遇StudentTwo.class未定义或找不到，去除此处注释，即可
-class StudentTwo {
-	private int orderNum = 0;
-	private String name;
-	private int age;
-	public StudentTwo() {}
-	public StudentTwo(String name, int age) {
-		//super();
-		this.name = name;
-		this.age  = age;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return this.name;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public int getAge() {
-		return this.age;
-	}
-	public int getOrderNum() {
-		return this.orderNum ;
-	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
-	}
-} */
+ * class StudentTwo {
+ * private int orderNum = 0;
+ * private String name;
+ * private int age;
+ * public StudentTwo() {}
+ * public StudentTwo(String name, int age) {
+ * //super();
+ * this.name = name;
+ * this.age  = age;
+ * }
+ * public void setName(String name) {
+ * this.name = name;
+ * }
+ * public String getName() {
+ * return this.name;
+ * }
+ * public void setAge(int age) {
+ * this.age = age;
+ * }
+ * public int getAge() {
+ * return this.age;
+ * }
+ * public int getOrderNum() {
+ * return this.orderNum ;
+ * }
+ * public void setOrderNum(int orderNum) {
+ * this.orderNum = orderNum;
+ * }
+ * }
+ */
 
 /**
  * StudentTwo对象的比较器：比较方式[1，2，0]
@@ -204,80 +207,85 @@ class StudentTwo {
  * 3.以name和age计算的hashCode值递增排序
  *		   计算方法：name.hashCode() + age;
  */
-class StudentComparator implements Comparator{
-//泛型加强版：class StudentComparator implements Comparator<StudentTwo>
-	private static int ORDER_NUM = 0;	//最终设计为static final int
-	public StudentComparator() {}
-	public StudentComparator(int order_num) {
-		//super();
-		//构造函数执行时，确定排序模式值：ORDER_NUM
-		StudentComparator.ORDER_NUM = order_num;		//因为ORDER_NUM为静态变量，因而不要使用this
-	}
-	public static int getOrderNum() {
-		return StudentComparator.ORDER_NUM;				//因为ORDER_NUM为静态变量，因而不要使用this
-	}
-	public void setOrderNum(int order_num) {
-		StudentComparator.ORDER_NUM = order_num;
-	}
-	
+class StudentComparator implements Comparator {
+    //泛型加强版：class StudentComparator implements Comparator<StudentTwo>
+    private static int ORDER_NUM = 0;    //最终设计为static final int
+
+    public StudentComparator() {
+    }
+
+    public StudentComparator(int order_num) {
+        //super();
+        //构造函数执行时，确定排序模式值：ORDER_NUM
+        StudentComparator.ORDER_NUM = order_num;        //因为ORDER_NUM为静态变量，因而不要使用this
+    }
+
+    public static int getOrderNum() {
+        return StudentComparator.ORDER_NUM;                //因为ORDER_NUM为静态变量，因而不要使用this
+    }
+
+    public void setOrderNum(int order_num) {
+        StudentComparator.ORDER_NUM = order_num;
+    }
+
     public int compare(Object obj1, Object obj2) {
 //泛型加强版：oublic int compare(StudentTwo stut1, StudentTwo stut2)
-		if(!(obj1 instanceof StudentTwo)
-			|| !(obj2 instanceof StudentTwo)) {
-			throw new RuntimeException("比较对象不是StudentTwo，无法比较！");
-		}
-		StudentTwo stut1 = (StudentTwo) obj1;
-		StudentTwo stut2 = (StudentTwo) obj2;
-		switch (StudentComparator.getOrderNum()) {
-		case 1:
-		    return compareToName(stut1, stut2);
-		case 2:
-			return compareToAge(stut1, stut2);
-		default:
-			return compareToDefault(stut1, stut2);
-		}
-	}
+        if (!(obj1 instanceof StudentTwo)
+                || !(obj2 instanceof StudentTwo)) {
+            throw new RuntimeException("比较对象不是StudentTwo，无法比较！");
+        }
+        StudentTwo stut1 = (StudentTwo) obj1;
+        StudentTwo stut2 = (StudentTwo) obj2;
+        switch (StudentComparator.getOrderNum()) {
+            case 1:
+                return compareToName(stut1, stut2);
+            case 2:
+                return compareToAge(stut1, stut2);
+            default:
+                return compareToDefault(stut1, stut2);
+        }
+    }
 
-	public int compareToName(StudentTwo stut1, StudentTwo stut2) {
-		System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
-						   + "......PK......"
-						   + "先辈" + stut2.getName() + "::" + stut2.getAge());
-		int temp = stut1.getName().compareTo(stut2.getName());
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stut1.getAge() - stut2.getAge();
-		}
-	}
+    public int compareToName(StudentTwo stut1, StudentTwo stut2) {
+        System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
+                + "......PK......"
+                + "先辈" + stut2.getName() + "::" + stut2.getAge());
+        int temp = stut1.getName().compareTo(stut2.getName());
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stut1.getAge() - stut2.getAge();
+        }
+    }
 
-	public int compareToAge(StudentTwo stut1, StudentTwo stut2) {
-		System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
-						   + "......PK......"
-						   + "先辈" + stut2.getName() + "::" + stut2.getAge());
-		int temp = stut1.getAge() - stut2.getAge();
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stut1.getName().compareTo(stut2.getName());
-		}
-	}
+    public int compareToAge(StudentTwo stut1, StudentTwo stut2) {
+        System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
+                + "......PK......"
+                + "先辈" + stut2.getName() + "::" + stut2.getAge());
+        int temp = stut1.getAge() - stut2.getAge();
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stut1.getName().compareTo(stut2.getName());
+        }
+    }
 
-	public int compareToDefault(StudentTwo stut1, StudentTwo stut2) {
-		/**
-		 * StudentTwo类并未复写hashCode()方法
-		 * 在比较器中根据name和age生成hashCode值
-		 */
-		int hashCode1 = hashCode(stut1.getName(), stut1.getAge());
-		int hashCode2 = hashCode(stut2.getName(), stut2.getAge());
-		System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
-								  + "：：哈希值：：" + hashCode1
-						   + "......PK......"
-						   + "先辈" + stut2.getName() + "::" + stut2.getAge()
-							      + "：：哈希值：：" + hashCode2);
-		return hashCode1 - hashCode2;
-	}
-	
-	public int hashCode(String name, int age) {
-		return name.hashCode() + age;
-	}
+    public int compareToDefault(StudentTwo stut1, StudentTwo stut2) {
+        /**
+         * StudentTwo类并未复写hashCode()方法
+         * 在比较器中根据name和age生成hashCode值
+         */
+        int hashCode1 = hashCode(stut1.getName(), stut1.getAge());
+        int hashCode2 = hashCode(stut2.getName(), stut2.getAge());
+        System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
+                + "：：哈希值：：" + hashCode1
+                + "......PK......"
+                + "先辈" + stut2.getName() + "::" + stut2.getAge()
+                + "：：哈希值：：" + hashCode2);
+        return hashCode1 - hashCode2;
+    }
+
+    public int hashCode(String name, int age) {
+        return name.hashCode() + age;
+    }
 }

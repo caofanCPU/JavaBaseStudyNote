@@ -1,74 +1,72 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import java.io.*;
 class ReadJavaFile {
-	public static void main(String[] args) {
-		/**
-		 * ReadJavaFile.javaÎÄ¼ş½â¾öÎÊÌâ£º
-		 * ¶ÁÈ¡±¾´úÂëÎÄ¼ş£¬½«ÆäÄÚÈİ´òÓ¡µ½¿ØÖÆÌ¨ÉÏ
-		 *                 Í¬Ê±¸´ÖÆµ½ÁíÍâÒ»¸öÎÄ¼şÖĞ
-		 */
-		//ÔÚtry-catch´úÂë¿éÍâ²¿½¨Á¢ÎÄ¼şµÄ¶ÁÒıÓÃ¡¢Ğ´ÒıÓÃ
-		//ÔÚtry-catch´úÂë¿éÄÚ²¿³õÊ¼»¯ÎÄ¼ş¶ÁÒıÓÃ¡¢Ğ´ÒıÓÃ
-		FileReader fr = null;
-		FileWriter fw = null;
+    public static void main(String[] args) {
+        /**
+         * ReadJavaFile.javaæ–‡ä»¶è§£å†³é—®é¢˜ï¼š
+         * è¯»å–æœ¬ä»£ç æ–‡ä»¶ï¼Œå°†å…¶å†…å®¹æ‰“å°åˆ°æ§åˆ¶å°ä¸Š
+         *                 åŒæ—¶å¤åˆ¶åˆ°å¦å¤–ä¸€ä¸ªæ–‡ä»¶ä¸­
+         */
+        //åœ¨try-catchä»£ç å—å¤–éƒ¨å»ºç«‹æ–‡ä»¶çš„è¯»å¼•ç”¨ã€å†™å¼•ç”¨
+        //åœ¨try-catchä»£ç å—å†…éƒ¨åˆå§‹åŒ–æ–‡ä»¶è¯»å¼•ç”¨ã€å†™å¼•ç”¨
+        FileReader fr = null;
+        FileWriter fw = null;
 
-		try {
-			fr = new FileReader("ReadJavaFile.java");
-			fw = new FileWriter("ReadJavaFile.txt");
-			/**
-			 * »º´æÇøbuf¡¢»º´æÇø¶ÁÈ¡µ½µÄ×Ö½Ú³¤¶Èlen
-			 * ²»»á·¢ÉúÒì³££¬¶¨ÒåÔÚtry´úÂë¿éÄÚ²¿£¬·½±ãÔÄ¶Á£¬Í¬Ê±±ÜÃâ·Ç±ØÒªµÄÈ«¾Ö±äÁ¿
-			 */
-			char[] buf = new char[1024];
-			int len = 0;
-			while (-1 != (len = fr.read(buf))) {
-				fw.write(buf, 0, len);
-				sop(new String(buf, 0, len));
-			}
-		}
-		catch(IOException ioe) {
-			//´ı´¦Àí
-			sop("Catch:" + ioe.toString());
-		}
-		finally {
-			/**
-			 * Ê¹ÓÃtry-catch+ÅĞ¶ÏÖ¸Õë²»Îª¿ÕÅĞ¶Ï£¬¹Ø±ÕÁ÷×ÊÔ´
-			 */
-			try {
-				if (null != fr) {
-					fr.close();
-				}
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				sop("Catch:ÎÄ¼ş¶ÁÈ¡¹Ø±ÕÒì³£" + ioe.toString());
-			}
-			try {
-				if (null != fw) {
-					fw.close();
-				}
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				sop("Catch:ÎÄ¼şĞ´Èë¹Ø±ÕÒì³£" + ioe.toString());
-			}
-		}
+        try {
+            fr = new FileReader("ReadJavaFile.java");
+            fw = new FileWriter("ReadJavaFile.txt");
+            /**
+             * ç¼“å­˜åŒºbufã€ç¼“å­˜åŒºè¯»å–åˆ°çš„å­—èŠ‚é•¿åº¦len
+             * ä¸ä¼šå‘ç”Ÿå¼‚å¸¸ï¼Œå®šä¹‰åœ¨tryä»£ç å—å†…éƒ¨ï¼Œæ–¹ä¾¿é˜…è¯»ï¼ŒåŒæ—¶é¿å…éå¿…è¦çš„å…¨å±€å˜é‡
+             */
+            char[] buf = new char[1024];
+            int len = 0;
+            while (-1 != (len = fr.read(buf))) {
+                fw.write(buf, 0, len);
+                sop(new String(buf, 0, len));
+            }
+        } catch (IOException ioe) {
+            //å¾…å¤„ç†
+            sop("Catch:" + ioe.toString());
+        } finally {
+            /**
+             * ä½¿ç”¨try-catch+åˆ¤æ–­æŒ‡é’ˆä¸ä¸ºç©ºåˆ¤æ–­ï¼Œå…³é—­æµèµ„æº
+             */
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                sop("Catch:æ–‡ä»¶è¯»å–å…³é—­å¼‚å¸¸" + ioe.toString());
+            }
+            try {
+                if (null != fw) {
+                    fw.close();
+                }
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                sop("Catch:æ–‡ä»¶å†™å…¥å…³é—­å¼‚å¸¸" + ioe.toString());
+            }
+        }
 
-	}
-	
-	public static void sop(Object obj) {
-		/**
-		 * ´òÓ¡×Ö·û´®
-		 * 
-		 */
-		System.out.println(obj);
-	}
+    }
 
-	public static void lineSplit() {
-		/**
-		 * ´òÓ¡·Ö¸ô·û
-		 * 
-		 */
-		sop("---------------------------");
-	}
+    public static void sop(Object obj) {
+        /**
+         * æ‰“å°å­—ç¬¦ä¸²
+         *
+         */
+        System.out.println(obj);
+    }
+
+    public static void lineSplit() {
+        /**
+         * æ‰“å°åˆ†éš”ç¬¦
+         *
+         */
+        sop("---------------------------");
+    }
 }

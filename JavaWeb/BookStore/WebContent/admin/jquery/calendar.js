@@ -1,3 +1,3 @@
-$(document).ready(function(){
-	$('.dateClassStyle').datepick({dateFormat: 'yy-mm-dd'}); 
+$(document).ready(function () {
+    $('.dateClassStyle').datepick({dateFormat: 'yy-mm-dd'});
 });

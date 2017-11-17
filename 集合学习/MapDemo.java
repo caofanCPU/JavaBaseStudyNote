@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -123,148 +122,153 @@ map集合的值(对象)的集合为：[24, 20, 666, 8, 22, 20, 7]
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 class MapDemo {
-	public static void main(String[] args) {
-		/* MapDemo.java文件解决问题：
+    public static void main(String[] args) {
+        /* MapDemo.java文件解决问题：
 		 * 练习Map的共性方法
 		 */
-		lineSplit();
-		sop("集合Map全部共性方法练习代码MapDemp.java"
-			+ "\n-------编译全部OK--------");
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		Map<String, Integer> mapTwo = new HashMap<String, Integer>();
-		//1.添加元素.put(K key,V value)，返回以前键key的值(对象)value
-		mapTwo.put("张山", 7);
-		mapTwo.put("李四", 8);
-		//1.添加map集合
-		map.putAll(mapTwo);
-		map.put("A", 22);
-		map.put("B", 20);
-		map.put(null, 24);
-		map.put("Dd", 20);
-		lineSplit();
-		//sop("ssss..." + (new Integer(5)));
-		sop("第一次存入键GG的值(对象)value = " + map.put("GG", new Integer(555)));
-		sop("再次存入键GG的值(对象)value = " + map.put("GG", 666));
-		lineSplit();
-		//3.判断键是否存在.containsKey(Object key)
-		sop("键key为A存在吗：" + map.containsKey("A")
-			+ "\n键key为D存在吗：" + map.containsKey("D"));
-		//3.判断值是否存在.containsValue(V value)
-		sop("值value为23存在吗：" + map.containsValue(23)
-			+ "\n值value为20存在吗：" + map.containsValue(20));
-		lineSplit();
-		//4.获取Map集合的长度.size()
-		sop("未扩容前map集合的长度为：" + map.size());
-		//1.添加map集合
-		map.putAll(map);	//由于Map集合必须保证键的唯一性，因而自我增殖得到的结果等价于空操作
-		sop("自身克隆增殖后map集合的长度为：" + map.size());
-		lineSplit();
-		//4.获取map集合的值的集合.values()
-		Collection mapVc = map.values();
-		sop("map集合的值(对象)的集合为：" + mapVc);
-		lineSplit();
-		//4.获取键key在map集合中的值.get(Object key)：返回键的值value
-		sop("键null在map集合中的值：" + map.get(null)
-			 + "\n键A666在map集合中的值：" + map.get("A666"));
-		lineSplit();
-		sop("遍历时map集合的长度为：" + map.size());
-		sop("使用Map.keySet()->Set迭代器，迭代获取键的对象"
-			+ "\n再使用Map.get(Object key)方法->循环遍历map集合：");
-		int i = 1;
-		/**
-		 * map.keySet()返回的是键key的一个集合序列Set  
-		 * Set是接口，其子类hashSet、TreeSet都有迭代器Iterator
-		 * HashSet s = map.keySet();
-		 */
-		for (Iterator<String> it = map.keySet().iterator(); it.hasNext(); i++) {
-		    String str = it.next();
-			sop("第[" + i +"]对:  " + "<键key = " + str + ", "
-			    + "值value = " + map.get(str) + ">");
-		}
-		lineSplit();
-		sop("遍历时map集合的长度为：" + map.size());
-		sop("使用Map.entrySet()->Map.Entry<String, Integer>迭代器，迭代获取键值关系的对象"
-			+ "\n再使用关系对象的特有方法.getKey() + .getValue()->循环遍历map集合：");
-		i = 1;
-		/**
-		 * Map.entrySet()返回是Set<Map.Entry<K, V>>，一个保存了键值关系的序列
-		 * Set是接口，其子类HashSet、TreeSet都有迭代器Iterator
-		 * HashSet<String, Integer> = Map.keySet()
-		 */
-		/**
-		Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
-		for (Iterator<Map.Entry<String, Integer>> it = entrySet.iterator(); it.hasNext(); i++) {
-		    Map.Entry<String, Integer> me = it.next();	//获取关系对象
-			sop("第[" + i +"]对:  " + "<键key = " + me.getKey() + ", "
-			    + "值value = " + me.getValue() + ">");
-		}
-		 */
-		//简化加强版
-		for (Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator(); it.hasNext(); i++) {
-			Map.Entry<String, Integer> me = it.next();		//迭代获取关系对象
-			sop("第[" + i +"]对:  " + "<键key = " + me.getKey() + ", "
-			    + "值value = " + me.getValue() + ">");
-		}
-		lineSplit();
-		//2.删除键key以及键的值value
-		sop("将要被删除的键key张山的值value = " + map.remove("张山"));
-		//2.清空map集合.clear()
-		map.clear();
-		//3.判断map集合是否为空
-		sop("进行clear操作后map集合为空：" +map.isEmpty());
-		lineSplit();
-	}
-	
-	public static void sop(Object obj) {
+        lineSplit();
+        sop("集合Map全部共性方法练习代码MapDemp.java"
+                + "\n-------编译全部OK--------");
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> mapTwo = new HashMap<String, Integer>();
+        //1.添加元素.put(K key,V value)，返回以前键key的值(对象)value
+        mapTwo.put("张山", 7);
+        mapTwo.put("李四", 8);
+        //1.添加map集合
+        map.putAll(mapTwo);
+        map.put("A", 22);
+        map.put("B", 20);
+        map.put(null, 24);
+        map.put("Dd", 20);
+        lineSplit();
+        //sop("ssss..." + (new Integer(5)));
+        sop("第一次存入键GG的值(对象)value = " + map.put("GG", new Integer(555)));
+        sop("再次存入键GG的值(对象)value = " + map.put("GG", 666));
+        lineSplit();
+        //3.判断键是否存在.containsKey(Object key)
+        sop("键key为A存在吗：" + map.containsKey("A")
+                + "\n键key为D存在吗：" + map.containsKey("D"));
+        //3.判断值是否存在.containsValue(V value)
+        sop("值value为23存在吗：" + map.containsValue(23)
+                + "\n值value为20存在吗：" + map.containsValue(20));
+        lineSplit();
+        //4.获取Map集合的长度.size()
+        sop("未扩容前map集合的长度为：" + map.size());
+        //1.添加map集合
+        map.putAll(map);    //由于Map集合必须保证键的唯一性，因而自我增殖得到的结果等价于空操作
+        sop("自身克隆增殖后map集合的长度为：" + map.size());
+        lineSplit();
+        //4.获取map集合的值的集合.values()
+        Collection mapVc = map.values();
+        sop("map集合的值(对象)的集合为：" + mapVc);
+        lineSplit();
+        //4.获取键key在map集合中的值.get(Object key)：返回键的值value
+        sop("键null在map集合中的值：" + map.get(null)
+                + "\n键A666在map集合中的值：" + map.get("A666"));
+        lineSplit();
+        sop("遍历时map集合的长度为：" + map.size());
+        sop("使用Map.keySet()->Set迭代器，迭代获取键的对象"
+                + "\n再使用Map.get(Object key)方法->循环遍历map集合：");
+        int i = 1;
+        /**
+         * map.keySet()返回的是键key的一个集合序列Set
+         * Set是接口，其子类hashSet、TreeSet都有迭代器Iterator
+         * HashSet s = map.keySet();
+         */
+        for (Iterator<String> it = map.keySet().iterator(); it.hasNext(); i++) {
+            String str = it.next();
+            sop("第[" + i + "]对:  " + "<键key = " + str + ", "
+                    + "值value = " + map.get(str) + ">");
+        }
+        lineSplit();
+        sop("遍历时map集合的长度为：" + map.size());
+        sop("使用Map.entrySet()->Map.Entry<String, Integer>迭代器，迭代获取键值关系的对象"
+                + "\n再使用关系对象的特有方法.getKey() + .getValue()->循环遍历map集合：");
+        i = 1;
+        /**
+         * Map.entrySet()返回是Set<Map.Entry<K, V>>，一个保存了键值关系的序列
+         * Set是接口，其子类HashSet、TreeSet都有迭代器Iterator
+         * HashSet<String, Integer> = Map.keySet()
+         */
+        /**
+         Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
+         for (Iterator<Map.Entry<String, Integer>> it = entrySet.iterator(); it.hasNext(); i++) {
+         Map.Entry<String, Integer> me = it.next();	//获取关系对象
+         sop("第[" + i +"]对:  " + "<键key = " + me.getKey() + ", "
+         + "值value = " + me.getValue() + ">");
+         }
+         */
+        //简化加强版
+        for (Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator(); it.hasNext(); i++) {
+            Map.Entry<String, Integer> me = it.next();        //迭代获取关系对象
+            sop("第[" + i + "]对:  " + "<键key = " + me.getKey() + ", "
+                    + "值value = " + me.getValue() + ">");
+        }
+        lineSplit();
+        //2.删除键key以及键的值value
+        sop("将要被删除的键key张山的值value = " + map.remove("张山"));
+        //2.清空map集合.clear()
+        map.clear();
+        //3.判断map集合是否为空
+        sop("进行clear操作后map集合为空：" + map.isEmpty());
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void sopt(Object obj) {
+    public static void sopt(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.print(obj);
-	}
+        System.out.print(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 /**
  * 关于Map.Entry<String, Integer>的内部实现原理
-嵌套接口：
-	interface Map {
-		public static interface Entry {
-			public abstract Object getKey();
-			public abstract Object getValue();
-		}
-	}
-
-	class HashMap implements Map {
-		class HashMapEntry implements Map.Entry {
-			public Object getKey() {
-				
-			}
-			public Object getValue() {
-			
-			}
-		}
-
-	}
-外部类CA实现外部接口IA，内部类CB实现内部公共静态接口IB
-内部类：CA.CB		内部类文件形式CA$CB
-内部接口：IA.IB		内部接口文件形式IA$IB
-为何要在Map内部定义Map.Entry接口？
-因为现有Map集合，再有Map.Entry关系，所以Map.Entry是Map的内部事物；
-此外，内部接口可以直接访问外部接口，定义为static；
-反过来，因为可以加static修饰符，所以Map.Entry是Map的内部成员
+ * 嵌套接口：
+ * interface Map {
+ * public static interface Entry {
+ * public abstract Object getKey();
+ * public abstract Object getValue();
+ * }
+ * }
+ * <p>
+ * class HashMap implements Map {
+ * class HashMapEntry implements Map.Entry {
+ * public Object getKey() {
+ * <p>
+ * }
+ * public Object getValue() {
+ * <p>
+ * }
+ * }
+ * <p>
+ * }
+ * 外部类CA实现外部接口IA，内部类CB实现内部公共静态接口IB
+ * 内部类：CA.CB		内部类文件形式CA$CB
+ * 内部接口：IA.IB		内部接口文件形式IA$IB
+ * 为何要在Map内部定义Map.Entry接口？
+ * 因为现有Map集合，再有Map.Entry关系，所以Map.Entry是Map的内部事物；
+ * 此外，内部接口可以直接访问外部接口，定义为static；
+ * 反过来，因为可以加static修饰符，所以Map.Entry是Map的内部成员
  */

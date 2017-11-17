@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -61,70 +60,82 @@ Name = AK47, Age = 16
 
 */
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.TreeSet;
+
 class TreeSetTest2 {
-	public static void main(String[] args) {
-		/* TreeSetTest2.java文件解决问题：
+    public static void main(String[] args) {
+        /* TreeSetTest2.java文件解决问题：
 		*  StudentTwo对象自身未设定比较规则，欲使其按照name递增排序
 		*/
-		TreeSet ts = new TreeSet(new StudentComparator());
-		lineSplit();
-		ts.add(new StudentTwo("AK47", 10));
-		ts.add(new StudentTwo("AK44", 16));
-		ts.add(new StudentTwo("AK47", 16));
-		ts.add(new StudentTwo("AK47", 10));
-		sop("集合TreeSet-->ts中实际存储的元素排序如下：");
-		for(Iterator<StudentTwo> it = ts.iterator(); it.hasNext();) {
-			StudentTwo stut = it.next();
-			sop("Name = " + stut.getName() + ", "
-				+ "Age = " + stut.getAge());
-		}
-		lineSplit();
-	}
-	
-	public static void sop(Object obj) {
+        TreeSet ts = new TreeSet(new StudentComparator());
+        lineSplit();
+        ts.add(new StudentTwo("AK47", 10));
+        ts.add(new StudentTwo("AK44", 16));
+        ts.add(new StudentTwo("AK47", 16));
+        ts.add(new StudentTwo("AK47", 10));
+        sop("集合TreeSet-->ts中实际存储的元素排序如下：");
+        for (Iterator<StudentTwo> it = ts.iterator(); it.hasNext(); ) {
+            StudentTwo stut = it.next();
+            sop("Name = " + stut.getName() + ", "
+                    + "Age = " + stut.getAge());
+        }
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 class StudentTwo {
-	private int orderNum = 0;
-	private String name;
-	private int age;
-	public StudentTwo() {}
-	public StudentTwo(String name, int age) {
-		//super();
-		this.name = name;
-		this.age  = age;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getName() {
-		return this.name;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public int getAge() {
-		return this.age;
-	}
-	public int getOrderNum() {
-		return this.orderNum ;
-	}
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
-	}
+    private int orderNum = 0;
+    private String name;
+    private int age;
+
+    public StudentTwo() {
+    }
+
+    public StudentTwo(String name, int age) {
+        //super();
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public int getOrderNum() {
+        return this.orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
 }
 
 /**
@@ -132,18 +143,18 @@ class StudentTwo {
  * 以name递增排序
  * 同name，以age递增排序
  */
-class StudentComparator implements Comparator{
+class StudentComparator implements Comparator {
     public int compare(Object obj1, Object obj2) {
-		StudentTwo stut1 = (StudentTwo) obj1;
-		StudentTwo stut2 = (StudentTwo) obj2;
-		System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
-						   + "......PK......"
-						   + "先辈" + stut2.getName() + "::" + stut2.getAge());
-		int temp = stut1.getName().compareTo(stut2.getName());
-		if (0 != temp) {
-		    return temp;
-		} else {
-			return stut1.getAge() - stut2.getAge();
-		}
-	}
+        StudentTwo stut1 = (StudentTwo) obj1;
+        StudentTwo stut2 = (StudentTwo) obj2;
+        System.out.println("后辈" + stut1.getName() + "::" + stut1.getAge()
+                + "......PK......"
+                + "先辈" + stut2.getName() + "::" + stut2.getAge());
+        int temp = stut1.getName().compareTo(stut2.getName());
+        if (0 != temp) {
+            return temp;
+        } else {
+            return stut1.getAge() - stut2.getAge();
+        }
+    }
 }

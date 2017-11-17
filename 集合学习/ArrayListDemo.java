@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的，元素可以重复
@@ -52,54 +51,56 @@ List：特有方法，凡是可以针对索引操作的方法
 */
 
 /*去除ArrayList中的重复元素*/
-import java.util.*;
-import java.lang.Math;		//导入产生随机数的java.lang.Math包
+
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 class ArrayListDemo {
-	public static void main(String[] args) {
-		ArrayList af = new ArrayList();
-		//添加元素，使用Math.random()产生[0.0，1.0)的均匀分布随机数
-		//			往af中添加10个Integer对象
-		for(int i = 10; i > 0; i--) {
-			//使用继承自Collection的.add(element)方法添加元素
-			af.add((int)(Math.random() * 10) + 1);
-		}
-		lineSplit();
-		sop("10个随机整数对象组成的ArrayList-->af初始化为::\n\t" + af);
-		//使用继承自Coletion的.addAll(集合)方法添加自身集合
-		af.addAll(af);
-		sop("自身克隆后ArrayList-->af的所有元素为:\n\t" + af);
-		lineSplit();
-		af = noRepeatElement(af);
-		sop("去重后ArrayList-->af的所有元素为:\n\t" + af);
-	}
+    public static void main(String[] args) {
+        ArrayList af = new ArrayList();
+        //添加元素，使用Math.random()产生[0.0，1.0)的均匀分布随机数
+        //			往af中添加10个Integer对象
+        for (int i = 10; i > 0; i--) {
+            //使用继承自Collection的.add(element)方法添加元素
+            af.add((int) (Math.random() * 10) + 1);
+        }
+        lineSplit();
+        sop("10个随机整数对象组成的ArrayList-->af初始化为::\n\t" + af);
+        //使用继承自Coletion的.addAll(集合)方法添加自身集合
+        af.addAll(af);
+        sop("自身克隆后ArrayList-->af的所有元素为:\n\t" + af);
+        lineSplit();
+        af = noRepeatElement(af);
+        sop("去重后ArrayList-->af的所有元素为:\n\t" + af);
+    }
 
-	public static ArrayList noRepeatElement(ArrayList af) {
-		ArrayList newAf = new ArrayList();
-		sop("去重前ArrayList-->af的所有元素为:\n\t" + af);
-		//for循环内部建立ListIterator迭代器ait
-		//			 ait.hasNext()判断是否当前操作元素是否为表末后一个元素null
-		for(ListIterator ait = af.listIterator(); ait.hasNext(); ) {
-			//使用继承自Collection的.contains()方法判断是否包含元素
-			//			ListIterator迭代器ait.next()方法，获取当前元素，并将指针移向后一个迭代对象
-		    if(!newAf.contains(ait.next())) {
-				//使用ListIterator迭代器ait.previous()特有方法将指针移向当前要获取的对象
-				newAf.add(ait.previous());
-				//添加后，将指针还原至下一个要迭代的对象
-				ait.next();
-			}
-		}
-		return newAf;
-	}
+    public static ArrayList noRepeatElement(ArrayList af) {
+        ArrayList newAf = new ArrayList();
+        sop("去重前ArrayList-->af的所有元素为:\n\t" + af);
+        //for循环内部建立ListIterator迭代器ait
+        //			 ait.hasNext()判断是否当前操作元素是否为表末后一个元素null
+        for (ListIterator ait = af.listIterator(); ait.hasNext(); ) {
+            //使用继承自Collection的.contains()方法判断是否包含元素
+            //			ListIterator迭代器ait.next()方法，获取当前元素，并将指针移向后一个迭代对象
+            if (!newAf.contains(ait.next())) {
+                //使用ListIterator迭代器ait.previous()特有方法将指针移向当前要获取的对象
+                newAf.add(ait.previous());
+                //添加后，将指针还原至下一个要迭代的对象
+                ait.next();
+            }
+        }
+        return newAf;
+    }
 
-	public static void sop(Object obj) {
-		System.out.println(obj);
-	}
+    public static void sop(Object obj) {
+        System.out.println(obj);
+    }
 
-	public static void sopt(Object obj) {
-		System.out.print(obj);
-	}
+    public static void sopt(Object obj) {
+        System.out.print(obj);
+    }
 
-	public static void lineSplit() {
-		sop("---------------------------");
-	}
+    public static void lineSplit() {
+        sop("---------------------------");
+    }
 }

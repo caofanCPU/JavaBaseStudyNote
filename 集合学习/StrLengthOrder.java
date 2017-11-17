@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -76,98 +75,102 @@ set：其方法与Collection一致
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
+
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.TreeSet;
+
 class StrLengthOrder {
-	public static void main(String[] args) {
-		/* StrLengthOrder.java文件解决问题：
+    public static void main(String[] args) {
+        /* StrLengthOrder.java文件解决问题：
 		 * 给定多个字符串，按照字符串长度排序
 		 * 涉及排序问题，优先考虑TreeSet的二叉树结构
 		 * 1.对于需要【去重】的，按照一般规则设定即可
 		 * 2.对于不许去重的，可认为后进的元素应排在后面
 		 *		 if(内容同) reture 1
 		 */
-		//构建了一个Comparator的匿名内部类，因为实现接口Comparator只需要复写一个抽象方法
-		TreeSet ts = new TreeSet(new Comparator() {
-			public int compare(Object obj1, Object obj2) {
-				if(!(obj1 instanceof String)
-				   || !(obj2 instanceof String)) {
-					throw new RuntimeException("比较对象不是字符串，无法比较！");
-				}
-				String str1 = (String) obj1;
-				String str2 = (String) obj2;
-				System.out.println("后辈" + str1 + "：长度" + str1.length()
-								   + "..PK.."
-								   + "前辈" + str2 + "：长度" + str2.length());
-				int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
-				if(0 != temp) {
-					return temp;
-				} else {
-					temp = str1.compareTo(str2);
-					if(0 != temp) {
-						return temp;
-					} else {
-						return 1;
-					}
-				}
-			}
-		});
+        //构建了一个Comparator的匿名内部类，因为实现接口Comparator只需要复写一个抽象方法
+        TreeSet ts = new TreeSet(new Comparator() {
+            public int compare(Object obj1, Object obj2) {
+                if (!(obj1 instanceof String)
+                        || !(obj2 instanceof String)) {
+                    throw new RuntimeException("比较对象不是字符串，无法比较！");
+                }
+                String str1 = (String) obj1;
+                String str2 = (String) obj2;
+                System.out.println("后辈" + str1 + "：长度" + str1.length()
+                        + "..PK.."
+                        + "前辈" + str2 + "：长度" + str2.length());
+                int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
+                if (0 != temp) {
+                    return temp;
+                } else {
+                    temp = str1.compareTo(str2);
+                    if (0 != temp) {
+                        return temp;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+        });
 
-		lineSplit();
-		ts.add("PDD1");
-		ts.add("PDD2");
-		ts.add("PDD2");
-		ts.add("PDD3");
-		ts.add("PDD12");
-		ts.add("PDD0000");
-		lineSplit();
-		sop("集合TreeSet-->ts所有元素排列情况如下：");
-		int i = 0;
-		for(Iterator<String> it = ts.iterator(); it.hasNext(); i++) {
-			String str = it.next();
-			sop("第[" + (i+1) + "]名：" + str + ", "
-				+ "长度" + str.length());
-		}
-		lineSplit();
-	}
-	
-	public static void sop(Object obj) {
+        lineSplit();
+        ts.add("PDD1");
+        ts.add("PDD2");
+        ts.add("PDD2");
+        ts.add("PDD3");
+        ts.add("PDD12");
+        ts.add("PDD0000");
+        lineSplit();
+        sop("集合TreeSet-->ts所有元素排列情况如下：");
+        int i = 0;
+        for (Iterator<String> it = ts.iterator(); it.hasNext(); i++) {
+            String str = it.next();
+            sop("第[" + (i + 1) + "]名：" + str + ", "
+                    + "长度" + str.length());
+        }
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 /**
-class StrLengthComparator implements Comparator {
-    public int compare(Object obj1, Object obj2) {
-		if(!(obj1 instanceof String)
-		   || !(obj2 instanceof String)) {
-			throw new RuntimeException("比较对象不是字符串，无法比较！");
-		}
-		String str1 = (String) obj1;
-		String str2 = (String) obj2;
-		System.out.println("后辈" + str1 + "：长度" + str1.length()
-						   + "..PK.."
-						   + "前辈" + str2 + "：长度" + str2.length());
-		int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
-		if(0 != temp) {
-			return temp;
-		} else {
-			temp = str1.compareTo(str2);
-			if(0 != temp) {
-				return temp;
-			} else {
-				return 1;
-			}
-		}
-	}
-}
-*/
+ * class StrLengthComparator implements Comparator {
+ * public int compare(Object obj1, Object obj2) {
+ * if(!(obj1 instanceof String)
+ * || !(obj2 instanceof String)) {
+ * throw new RuntimeException("比较对象不是字符串，无法比较！");
+ * }
+ * String str1 = (String) obj1;
+ * String str2 = (String) obj2;
+ * System.out.println("后辈" + str1 + "：长度" + str1.length()
+ * + "..PK.."
+ * + "前辈" + str2 + "：长度" + str2.length());
+ * int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
+ * if(0 != temp) {
+ * return temp;
+ * } else {
+ * temp = str1.compareTo(str2);
+ * if(0 != temp) {
+ * return temp;
+ * } else {
+ * return 1;
+ * }
+ * }
+ * }
+ * }
+ */

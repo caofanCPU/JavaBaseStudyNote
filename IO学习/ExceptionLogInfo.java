@@ -1,67 +1,65 @@
-
-import java.io.*;
-import java.util.*;
-import java.text.*;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 
 class ExceptionLogInfo {
-	public static void main(String[] args) {
-		/**
-		 * ExceptionLogInfo.javaÎÄ¼ş½â¾öÎÊÌâ£º
-		 * ½«³ÌĞòÔËĞĞµÄÒì³£ĞÅÏ¢±£´æµ½Ö¸¶¨ÎÄ¼şÖĞ£¬²¢¸½´ø²¶»ñÒì³£Ê±µÄÊ±¼ä
-		 */
-		//¸Ä±äÄ¬ÈÏÊä³öÁ÷£¬½«JVMÔËĞĞÊ±µÄÏµÍ³ĞÅÏ¢Ğ´ÈëÖ¸¶¨ÎÄ¼şÖĞ
-		
-		try {
-			Properties prop = System.getProperties();
-			prop.list(new PrintStream("SystemInfo.txt"));
-		}
-		catch(IOException ioe) {
-			//´ı´¦Àí
-			sop("Catch:" + ioe.toString());
-		}
-		
+    public static void main(String[] args) {
+        /**
+         * ExceptionLogInfo.javaæ–‡ä»¶è§£å†³é—®é¢˜ï¼š
+         * å°†ç¨‹åºè¿è¡Œçš„å¼‚å¸¸ä¿¡æ¯ä¿å­˜åˆ°æŒ‡å®šæ–‡ä»¶ä¸­ï¼Œå¹¶é™„å¸¦æ•è·å¼‚å¸¸æ—¶çš„æ—¶é—´
+         */
+        //æ”¹å˜é»˜è®¤è¾“å‡ºæµï¼Œå°†JVMè¿è¡Œæ—¶çš„ç³»ç»Ÿä¿¡æ¯å†™å…¥æŒ‡å®šæ–‡ä»¶ä¸­
 
-		//´´ÔìÒì³££¬½«Òì³£ĞÅÏ¢Ğ´ÈëÖ¸¶¨ÎÄ¼ş
-		try {
-			int[] arr = new int[2];
-			sop(arr[3]);
-		}
-		catch(Exception e) {
-			//´ı´¦Àí
-			try {
-				String dateFormat1 = "yyyy-MM-dd hh:mm:ss";
-				String dateFormat2 = "yyyy-mm-dd hh:mm:ss";
-				SimpleDateFormat sdf = new SimpleDateFormat(dateFormat1);
-				//»ñÈ¡Ö¸¶¨Ê±¼ä¸ñÊ½µÄÒì³£²¶»ñÊ±¼ä
-				String timeStr = sdf.format(new Date());
-				//Í¨¹ı´´½¨Ä¿µÄÊä³öÁ÷£¬Ö¸ÏòÈÕÖ¾ÎÄ¼ş
-				PrintStream ps = new PrintStream("Exception.log");
-				//½«Òì³£²¶»ñÊ±¼äĞ´ÈëÈÕÖ¾ÎÄ¼ş
-				ps.println(timeStr);
-				//½«³öÏÖÔÚ¿ØÖÆÌ¨µÄÒì³£ĞÅÏ¢Ğ´ÈëÖ¸¶¨ÎÄ¼ş£¬Êä³öÁ÷ÖØ¶¨Ïò
-				System.setOut(ps);
-			}
-			catch(IOException ioe) {
-				//´ı´¦Àí
-				throw new RuntimeException("ÈÕÖ¾ÎÄ¼ş´´½¨Ê§°Ü£¡");
-			}
-			e.printStackTrace(System.out);
-		}
-	}
-	
-	public static void sop(Object obj) {
-		/**
-		 * ´òÓ¡×Ö·û´®
-		 * 
-		 */
-		System.out.println(obj);
-	}
+        try {
+            Properties prop = System.getProperties();
+            prop.list(new PrintStream("SystemInfo.txt"));
+        } catch (IOException ioe) {
+            //å¾…å¤„ç†
+            sop("Catch:" + ioe.toString());
+        }
 
-	public static void lineSplit() {
-		/**
-		 * ´òÓ¡·Ö¸ô·û
-		 * 
-		 */
-		sop("---------------------------");
-	}
+
+        //åˆ›é€ å¼‚å¸¸ï¼Œå°†å¼‚å¸¸ä¿¡æ¯å†™å…¥æŒ‡å®šæ–‡ä»¶
+        try {
+            int[] arr = new int[2];
+            sop(arr[3]);
+        } catch (Exception e) {
+            //å¾…å¤„ç†
+            try {
+                String dateFormat1 = "yyyy-MM-dd hh:mm:ss";
+                String dateFormat2 = "yyyy-mm-dd hh:mm:ss";
+                SimpleDateFormat sdf = new SimpleDateFormat(dateFormat1);
+                //è·å–æŒ‡å®šæ—¶é—´æ ¼å¼çš„å¼‚å¸¸æ•è·æ—¶é—´
+                String timeStr = sdf.format(new Date());
+                //é€šè¿‡åˆ›å»ºç›®çš„è¾“å‡ºæµï¼ŒæŒ‡å‘æ—¥å¿—æ–‡ä»¶
+                PrintStream ps = new PrintStream("Exception.log");
+                //å°†å¼‚å¸¸æ•è·æ—¶é—´å†™å…¥æ—¥å¿—æ–‡ä»¶
+                ps.println(timeStr);
+                //å°†å‡ºç°åœ¨æ§åˆ¶å°çš„å¼‚å¸¸ä¿¡æ¯å†™å…¥æŒ‡å®šæ–‡ä»¶ï¼Œè¾“å‡ºæµé‡å®šå‘
+                System.setOut(ps);
+            } catch (IOException ioe) {
+                //å¾…å¤„ç†
+                throw new RuntimeException("æ—¥å¿—æ–‡ä»¶åˆ›å»ºå¤±è´¥ï¼");
+            }
+            e.printStackTrace(System.out);
+        }
+    }
+
+    public static void sop(Object obj) {
+        /**
+         * æ‰“å°å­—ç¬¦ä¸²
+         *
+         */
+        System.out.println(obj);
+    }
+
+    public static void lineSplit() {
+        /**
+         * æ‰“å°åˆ†éš”ç¬¦
+         *
+         */
+        sop("---------------------------");
+    }
 }

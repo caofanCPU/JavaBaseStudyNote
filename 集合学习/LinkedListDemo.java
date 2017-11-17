@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的，元素可以重复
@@ -61,99 +60,103 @@ LinkedList-->ass原始链表出【栈】后为空::true
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
+
+import java.util.Collections;
+import java.util.LinkedList;
+
 class LinkedListDemo {
-	public static void main(String[] args) {
-		LinkedList ass = new LinkedList();
-		//1.添加元素，表头指向：【boolean】.offerFirst()
-		//  添加元素，表末指向：【boolean】.offerLast()
-		//使用继承Collection的add()方法添加元素，最先添加的为表头元素
-		//										 最后添加的为表末元素
-		lineSplit();
-		lineSplit();
-		ass.add(10);
-		ass.add(12);
-		sop("LinkedList-->ass测试链表，10在前12在后::"
-			+ "表头元素->" + ass.peekFirst()
-			+ "，表末元素<-" + ass.peekLast());
-		lineSplit();
-		ass.remove();	//移除表头
-		sop("LinkedList-->ass测试链表，移除表头后::"
-			+ "表头元素->" + ass.peekFirst()
-			+ "，表末元素<-" + ass.peekLast());
-		lineSplit();
-		ass.remove();	//再移除表头
-		sop("LinkedList-->ass测试链表，再移除表头后::"
-			+ "表头元素->" + ass.peekFirst()
-			+ "，表末元素<-" + ass.peekLast());
-		lineSplit();
-		ass.offerFirst(4);
-		ass.offerFirst(new Integer(5));
-		ass.offerFirst(3);
-		ass.offerFirst(6);
-		lineSplit();
-		//2.获取表头元素，不改变LinkedList：【E】.peekFirst()
-		//  获取表末元素，不改变LinkedList：【E】.peekLast()
-		sop("LinkedList-->ass原始链表::"
-			+ "表头元素->" + ass.peekFirst()
-			+ "，表末元素<-" + ass.peekLast());
-		//执行队列输自定义API操作
-		duiLie(ass);
-		//3.判断LinkedList是否为空，这是继承自Colletion的方法
-		sop("LinkedList-->ass原始链表出【队列】后为空::" + ass.isEmpty());
-		lineSplit();
-		//4.压栈添加元素，
-		ass.push(4);	//栈顶为表末
-		ass.push(5);
-		ass.push(3);
-		ass.push(6);	//栈底为表头
-		sop("使用压栈方法恢复LinkedList-->ass原始链表::"
-			+ "表头元素->" + ass.peekFirst()
-			+ "，表末元素<-" + ass.peekLast());
-		zhan(ass);
-		sop("LinkedList-->ass原始链表出【栈】后为空::" + ass.isEmpty());
-		lineSplit();
-	}
-	public static void duiLie(LinkedList ass) {
-		lineSplit();
-		//入队列的顺序应该是4,5,3,6，但是LinkedList-->ass存储的顺序是6,3,4,5
-		//使用Collections.reverse(ass)进行反转，输出后再反转ass还原为存储顺序
-		Collections.reverse(ass);
-		sop("LinkedList-->ass原始链表入【队列】顺序：" + ass);
-		Collections.reverse(ass);
-		System.out.print("LinkedList-->ass原始链表出【队列】顺序：[");
-		while(!ass.isEmpty()) {
-			System.out.print(ass.pollLast());
-			if(0 != ass.size()) {
-				System.out.print(", ");
-			}
-		}
-		System.out.print("]\n");
-		//lineSplit();
-	}
+    public static void main(String[] args) {
+        LinkedList ass = new LinkedList();
+        //1.添加元素，表头指向：【boolean】.offerFirst()
+        //  添加元素，表末指向：【boolean】.offerLast()
+        //使用继承Collection的add()方法添加元素，最先添加的为表头元素
+        //										 最后添加的为表末元素
+        lineSplit();
+        lineSplit();
+        ass.add(10);
+        ass.add(12);
+        sop("LinkedList-->ass测试链表，10在前12在后::"
+                + "表头元素->" + ass.peekFirst()
+                + "，表末元素<-" + ass.peekLast());
+        lineSplit();
+        ass.remove();    //移除表头
+        sop("LinkedList-->ass测试链表，移除表头后::"
+                + "表头元素->" + ass.peekFirst()
+                + "，表末元素<-" + ass.peekLast());
+        lineSplit();
+        ass.remove();    //再移除表头
+        sop("LinkedList-->ass测试链表，再移除表头后::"
+                + "表头元素->" + ass.peekFirst()
+                + "，表末元素<-" + ass.peekLast());
+        lineSplit();
+        ass.offerFirst(4);
+        ass.offerFirst(new Integer(5));
+        ass.offerFirst(3);
+        ass.offerFirst(6);
+        lineSplit();
+        //2.获取表头元素，不改变LinkedList：【E】.peekFirst()
+        //  获取表末元素，不改变LinkedList：【E】.peekLast()
+        sop("LinkedList-->ass原始链表::"
+                + "表头元素->" + ass.peekFirst()
+                + "，表末元素<-" + ass.peekLast());
+        //执行队列输自定义API操作
+        duiLie(ass);
+        //3.判断LinkedList是否为空，这是继承自Colletion的方法
+        sop("LinkedList-->ass原始链表出【队列】后为空::" + ass.isEmpty());
+        lineSplit();
+        //4.压栈添加元素，
+        ass.push(4);    //栈顶为表末
+        ass.push(5);
+        ass.push(3);
+        ass.push(6);    //栈底为表头
+        sop("使用压栈方法恢复LinkedList-->ass原始链表::"
+                + "表头元素->" + ass.peekFirst()
+                + "，表末元素<-" + ass.peekLast());
+        zhan(ass);
+        sop("LinkedList-->ass原始链表出【栈】后为空::" + ass.isEmpty());
+        lineSplit();
+    }
 
-	public static void zhan(LinkedList ass) {
-		lineSplit();
-		Collections.reverse(ass);
-		sop("LinkedList-->ass原始链表入【栈】顺序：" + ass);
-		Collections.reverse(ass);
-		System.out.print("LinkedList-->ass原始链表出【栈】顺序：[");
-		while(!ass.isEmpty()) {
-			System.out.print(ass.pop());
-			if(0 != ass.size()) {
-				System.out.print(", ");
-			}
-		}
-		System.out.print("]\n");
-		//lineSplit();
-	}
+    public static void duiLie(LinkedList ass) {
+        lineSplit();
+        //入队列的顺序应该是4,5,3,6，但是LinkedList-->ass存储的顺序是6,3,4,5
+        //使用Collections.reverse(ass)进行反转，输出后再反转ass还原为存储顺序
+        Collections.reverse(ass);
+        sop("LinkedList-->ass原始链表入【队列】顺序：" + ass);
+        Collections.reverse(ass);
+        System.out.print("LinkedList-->ass原始链表出【队列】顺序：[");
+        while (!ass.isEmpty()) {
+            System.out.print(ass.pollLast());
+            if (0 != ass.size()) {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("]\n");
+        //lineSplit();
+    }
+
+    public static void zhan(LinkedList ass) {
+        lineSplit();
+        Collections.reverse(ass);
+        sop("LinkedList-->ass原始链表入【栈】顺序：" + ass);
+        Collections.reverse(ass);
+        System.out.print("LinkedList-->ass原始链表出【栈】顺序：[");
+        while (!ass.isEmpty()) {
+            System.out.print(ass.pop());
+            if (0 != ass.size()) {
+                System.out.print(", ");
+            }
+        }
+        System.out.print("]\n");
+        //lineSplit();
+    }
 
 
-	public static void sop(Object obj) {
-		System.out.println(obj);
-	}
+    public static void sop(Object obj) {
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
-		sop("---------------------------");
-	}
+    public static void lineSplit() {
+        sop("---------------------------");
+    }
 }

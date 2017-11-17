@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -81,10 +80,14 @@ set：其方法与Collection一致
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
+
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.TreeSet;
+
 class StrLengthOrderFX {
-	public static void main(String[] args) {
-		/* StrLengthOrder.java文件解决问题：
+    public static void main(String[] args) {
+        /* StrLengthOrder.java文件解决问题：
 		 * 使用泛型+匿名内部类，解决如下问题：
 		 * 给定多个字符串，按照字符串长度排序
 		 * 涉及排序问题，优先考虑TreeSet的二叉树结构
@@ -92,81 +95,81 @@ class StrLengthOrderFX {
 		 * 2.对于不许去重的，可认为后进的元素应排在后面
 		 *		 if(内容同) reture 1
 		 */
-		//构建了一个Comparator<string>的泛型匿名内部类，因为实现接口Comparator只需要复写一个抽象方法
-		TreeSet<String> ts = new TreeSet<String>(new Comparator<String>() {
-			public int compare(String str1, String str2) {
-				System.out.println("后辈" + str1 + "：长度" + str1.length()
-								   + "..PK.."
-								   + "前辈" + str2 + "：长度" + str2.length());
-				int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
-				if(0 != temp) {
-					return temp;
-				} else {
-					temp = str1.compareTo(str2);
-					if(0 != temp) {
-						return temp;
-					} else {
-						return 1;
-					}
-				}
-			}
-		});
+        //构建了一个Comparator<string>的泛型匿名内部类，因为实现接口Comparator只需要复写一个抽象方法
+        TreeSet<String> ts = new TreeSet<String>(new Comparator<String>() {
+            public int compare(String str1, String str2) {
+                System.out.println("后辈" + str1 + "：长度" + str1.length()
+                        + "..PK.."
+                        + "前辈" + str2 + "：长度" + str2.length());
+                int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
+                if (0 != temp) {
+                    return temp;
+                } else {
+                    temp = str1.compareTo(str2);
+                    if (0 != temp) {
+                        return temp;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+        });
 
-		lineSplit();
-		ts.add("PDD1");
-		ts.add("PDD2");
-		ts.add("PDD2");
-		ts.add("PDD3");
-		ts.add("PDD12");
-		ts.add("PDD0000");
-		lineSplit();
-		sop("集合TreeSet-->ts所有元素排列情况如下：");
-		int i = 0;
-		for(Iterator<String> it = ts.iterator(); it.hasNext(); i++) {
-			String str = it.next();
-			sop("第[" + (i+1) + "]名：" + str + ", "
-				+ "长度" + str.length());
-		}
-		lineSplit();
-		sop("本StrLengthOrderFX.java与StrLengthOrder的区别在于：\n"
-		    + "\t1.集合、比较器对象、迭代器对象，都规定了操作数据类型"
-			+ "\n\t2.避免了类型强转以及对象类型判断，简化代码"
-			+ "\n\t3.编译没有关于安全的警告提示");
-		lineSplit();
-	}
-	
-	public static void sop(Object obj) {
+        lineSplit();
+        ts.add("PDD1");
+        ts.add("PDD2");
+        ts.add("PDD2");
+        ts.add("PDD3");
+        ts.add("PDD12");
+        ts.add("PDD0000");
+        lineSplit();
+        sop("集合TreeSet-->ts所有元素排列情况如下：");
+        int i = 0;
+        for (Iterator<String> it = ts.iterator(); it.hasNext(); i++) {
+            String str = it.next();
+            sop("第[" + (i + 1) + "]名：" + str + ", "
+                    + "长度" + str.length());
+        }
+        lineSplit();
+        sop("本StrLengthOrderFX.java与StrLengthOrder的区别在于：\n"
+                + "\t1.集合、比较器对象、迭代器对象，都规定了操作数据类型"
+                + "\n\t2.避免了类型强转以及对象类型判断，简化代码"
+                + "\n\t3.编译没有关于安全的警告提示");
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 }
 
 /**
-class StrLengthComparator implements Comparator<String> {
-    public int compare(String str1, String str2) {
-		System.out.println("后辈" + str1 + "：长度" + str1.length()
-				   + "..PK.."
-				   + "前辈" + str2 + "：长度" + str2.length());
-		int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
-		if(0 != temp) {
-			return temp;
-		} else {
-			temp = str1.compareTo(str2);
-			if(0 != temp) {
-				return temp;
-			} else {
-				return 1;
-			}
-		}
-	}
-}
-*/
+ * class StrLengthComparator implements Comparator<String> {
+ * public int compare(String str1, String str2) {
+ * System.out.println("后辈" + str1 + "：长度" + str1.length()
+ * + "..PK.."
+ * + "前辈" + str2 + "：长度" + str2.length());
+ * int temp = new Integer(str1.length()).compareTo(new Integer(str2.length()));
+ * if(0 != temp) {
+ * return temp;
+ * } else {
+ * temp = str1.compareTo(str2);
+ * if(0 != temp) {
+ * return temp;
+ * } else {
+ * return 1;
+ * }
+ * }
+ * }
+ * }
+ */

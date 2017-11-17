@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -52,67 +51,69 @@ set：其方法与Collection一致
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
-import java.lang.Math;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+
 class TreeSetDemo {
-	public static void main(String[] args) {
-		/* TreeSetDemo.java文件解决问题：
+    public static void main(String[] args) {
+        /* TreeSetDemo.java文件解决问题：
 		*  自动滤掉内容重复对象，并按照自然排序存储以及输出元素
 		*/
-		TreeSet ts = new TreeSet();
+        TreeSet ts = new TreeSet();
 		/* 产生1(含)~10(含)的10个随机整数
 		*  int[LENGTH]保存加入TreeSet-->ts的顺序
 		*/
-		final int LENGTH = 10;
-		int[] num= new int[LENGTH];
-		lineSplit();
-		sopt("加入TreeSet-->ts的元素依次为::\n\t");
-		for(int i = 0; i < LENGTH ; i++) {
-		    num[i] = (int)(Math.random() * 10 + 1);
-			sopt("[" + (i+1) + "号] = " + num[i]);
-			if ((LENGTH-1) != i) {
-				sopt(",  ");
-			} else {
-				sopt("\n");
-			}
-			ts.add(num[i]);		//利用基本数据类型的自动装箱特性
-		}
-		lineSplit();
-		sopt("实际存入TreeSet-->ts的所有元素::\n\t{");
-		if (!ts.isEmpty()) {	//如果TreeSet非空，那么一定可以先使用.next()再使用.hasNext()
-			for(Iterator<Integer> it = ts.iterator(); ; ) {
-				sopt(it.next());
-				if (it.hasNext()) {
-					sopt(",  ");
-				} else {
-					sopt("}\n");
-					break;	//遍历完毕，结束for循环
-				}
-			}
-		}
-		
-		lineSplit();
-	}
-	
-	public static void sop(Object obj) {
+        final int LENGTH = 10;
+        int[] num = new int[LENGTH];
+        lineSplit();
+        sopt("加入TreeSet-->ts的元素依次为::\n\t");
+        for (int i = 0; i < LENGTH; i++) {
+            num[i] = (int) (Math.random() * 10 + 1);
+            sopt("[" + (i + 1) + "号] = " + num[i]);
+            if ((LENGTH - 1) != i) {
+                sopt(",  ");
+            } else {
+                sopt("\n");
+            }
+            ts.add(num[i]);        //利用基本数据类型的自动装箱特性
+        }
+        lineSplit();
+        sopt("实际存入TreeSet-->ts的所有元素::\n\t{");
+        if (!ts.isEmpty()) {    //如果TreeSet非空，那么一定可以先使用.next()再使用.hasNext()
+            for (Iterator<Integer> it = ts.iterator(); ; ) {
+                sopt(it.next());
+                if (it.hasNext()) {
+                    sopt(",  ");
+                } else {
+                    sopt("}\n");
+                    break;    //遍历完毕，结束for循环
+                }
+            }
+        }
+
+        lineSplit();
+    }
+
+    public static void sop(Object obj) {
 		/* 打印字符串
 		*  带换行
 		*/
-		System.out.println(obj);
-	}
+        System.out.println(obj);
+    }
 
-	public static void sopt(Object obj) {
+    public static void sopt(Object obj) {
 		/* 打印字符串
 		*  不带换行
 		*/
-		System.out.print(obj);
-	}
+        System.out.print(obj);
+    }
 
-	public static void lineSplit() {
+    public static void lineSplit() {
 		/* 打印分隔符
 		*  
 		*/
-		sop("---------------------------");
-	}
+        sop("---------------------------");
+    }
 
 }

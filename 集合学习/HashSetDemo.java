@@ -1,4 +1,3 @@
-
 /*
 集合体系：Collection：存储的是对象的引用
 			|-- List：元素时有序的(存入顺序和取出顺序应该一致)，元素可以重复
@@ -49,16 +48,19 @@ HashSet默认可以添加内容相同元素吗::false
 ---------------------------
 请按任意键继续. . .
 */
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.Iterator;
+
 class HashSetDemo {
-	public static void main(String[] args) {
-		HashSet hs = new HashSet();
-		hs.add("java00");
-		hs.add("java01");
-		hs.add("java01");
-		hs.add("java03");
-		lineSplit();
-		/* 因为添加的是String对象
+    public static void main(String[] args) {
+        HashSet hs = new HashSet();
+        hs.add("java00");
+        hs.add("java01");
+        hs.add("java01");
+        hs.add("java03");
+        lineSplit();
+        /* 因为添加的是String对象
 		*  而String等内容对象在继承Object时，复写了.hashCode()和.equals(Object obj)
 		*  String.hashCode()：s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
 		*  因而(注意！)，内容相同的对象返回的hashCode值相同！
@@ -66,21 +68,21 @@ class HashSetDemo {
 		*  对于涉及内容的对象，都是判断内容相同为真
 		*  所以，上述添加"java01"重复，被HashSet自动丢弃
 		*/
-		sop("HashSet默认可以添加内容相同元素吗::" + hs.add("java00"));
-		lineSplit();
-		sop("集合HashSet-->hs的所有元素::");
-		for (Iterator<String> it = hs.iterator();
-			 it.hasNext(); ) {
-			sop("\t" + it.next());
-		}
-		lineSplit();
-	}
+        sop("HashSet默认可以添加内容相同元素吗::" + hs.add("java00"));
+        lineSplit();
+        sop("集合HashSet-->hs的所有元素::");
+        for (Iterator<String> it = hs.iterator();
+             it.hasNext(); ) {
+            sop("\t" + it.next());
+        }
+        lineSplit();
+    }
 
-	public static void sop(Object obj) {
-		System.out.println(obj);
-	}
+    public static void sop(Object obj) {
+        System.out.println(obj);
+    }
 
-	public static void lineSplit() {
-		sop("---------------------------");
-	}
+    public static void lineSplit() {
+        sop("---------------------------");
+    }
 }

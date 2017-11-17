@@ -4,14 +4,14 @@
 [4]  class CopyTextByBuffer {
 [5]  	public static void main(String[] args) {
 [6]  		/**
-[7]  		 * CopyTextByBuffer.javaÎÄ¼ş½â¾öÎÊÌâ£º
-[8]  		 * Í¨¹ı×Ö·ûÁ÷»º³åÇø£¬´ÓÔ´×Ö·ûÀàÎÄ¼ş¸´ÖÆµ½Ä¿µÄ×Ö·ûÀàÎÄ¼ş
-[9]  		 * Ê¾Àı£º½«±¾´úÂëÎÄ¼şCopyTextByBuffer.java¸´ÖÆµ½Í¬Ä¿Â¼ÏÂCopyTextByBuffer.txtÖĞ
-[10]  		 *		 ÒªÇó£¬Á½¸öÎÄ¼şÄÚÈİ¼¸±¾Ò»ÖÂ
-[11]  		 *		 ÇÒCopyTextByBuffer.txtÖĞÏÔÊ¾ÁËCopyTextByBuffer.javaµÄ´úÂëĞĞºÅ
-[12]  		 *		 ÈçµÚÒ»ĞĞ´úÂë£ºimport java.io.*; Ó¦¶ÔÓ¦Îª[1]  import java.io.*;
+[7]  		 * CopyTextByBuffer.javaæ–‡ä»¶è§£å†³é—®é¢˜ï¼š
+[8]  		 * é€šè¿‡å­—ç¬¦æµç¼“å†²åŒºï¼Œä»æºå­—ç¬¦ç±»æ–‡ä»¶å¤åˆ¶åˆ°ç›®çš„å­—ç¬¦ç±»æ–‡ä»¶
+[9]  		 * ç¤ºä¾‹ï¼šå°†æœ¬ä»£ç æ–‡ä»¶CopyTextByBuffer.javaå¤åˆ¶åˆ°åŒç›®å½•ä¸‹CopyTextByBuffer.txtä¸­
+[10]  		 *		 è¦æ±‚ï¼Œä¸¤ä¸ªæ–‡ä»¶å†…å®¹å‡ æœ¬ä¸€è‡´
+[11]  		 *		 ä¸”CopyTextByBuffer.txtä¸­æ˜¾ç¤ºäº†CopyTextByBuffer.javaçš„ä»£ç è¡Œå·
+[12]  		 *		 å¦‚ç¬¬ä¸€è¡Œä»£ç ï¼šimport java.io.*; åº”å¯¹åº”ä¸º[1]  import java.io.*;
 [13]  		 */
-[14]  		String sourceDir = System.getProperty("user.dir");	//»ñÈ¡±¾javaÎÄ¼şËùÔÚµÄ¸¸Ä¿Â¼
+[14]  		String sourceDir = System.getProperty("user.dir");	//è·å–æœ¬javaæ–‡ä»¶æ‰€åœ¨çš„çˆ¶ç›®å½•
 [15]  		String destinationDir = sourceDir;
 [16]  		//sop(sourceDir);
 [17]  		copyFile(sourceDir, destinationDir);
@@ -21,34 +21,34 @@
 [21]  	
 [22]  	public static void copyFile(String sourceDir, String destinationDir) {
 [23]  		File sourceFile = new File(sourceDir, "CopyTextByBuffer.java");
-[24]  		File destinationFile = new File(destinationDir, "Java´úÂë½«×ÔÉíÄÚÈİ¸´ÖÆµ½Ö¸¶¨ÎÄ¼ş.txt");
+[24]  		File destinationFile = new File(destinationDir, "Javaä»£ç å°†è‡ªèº«å†…å®¹å¤åˆ¶åˆ°æŒ‡å®šæ–‡ä»¶.txt");
 [25]  		BufferedReader bufr = null;
 [26]  		BufferedWriter bufw = null;
 [27]  		if (!sourceFile.exists()) {
-[28]  			throw new RuntimeException("Ô´ÎÄ¼şÂ·¾¶´íÎó»òÔ´ÎÄ¼ş²»´æÔÚ£¡");
+[28]  			throw new RuntimeException("æºæ–‡ä»¶è·¯å¾„é”™è¯¯æˆ–æºæ–‡ä»¶ä¸å­˜åœ¨ï¼");
 [29]  		}
 [30]  		if (!sourceFile.isFile()) {
-[31]  			throw new RuntimeException("Ô´ÎÄ¼ş²»´æÔÚ£¬Ö»ÓĞÍ¬ÃûÄ¿Â¼£¡");
+[31]  			throw new RuntimeException("æºæ–‡ä»¶ä¸å­˜åœ¨ï¼Œåªæœ‰åŒåç›®å½•ï¼");
 [32]  		}
 [33]  		if (0 == sourceFile.length()) {
-[34]  			throw new RuntimeException("Ô­ÎÄ¼ş´æÔÚµ«ÄÚÈİÎª¿Õ");
+[34]  			throw new RuntimeException("åŸæ–‡ä»¶å­˜åœ¨ä½†å†…å®¹ä¸ºç©º");
 [35]  		}
 [36]  		if (!destinationFile.getParentFile().isDirectory()) {
-[37]  			throw new RuntimeException("Ä¿µÄÎÄ¼şÖ¸¶¨¸¸Ä¿Â¼Â·¾¶´íÎó£¡");
+[37]  			throw new RuntimeException("ç›®çš„æ–‡ä»¶æŒ‡å®šçˆ¶ç›®å½•è·¯å¾„é”™è¯¯ï¼");
 [38]  		}
 [39]  		try {
 [40]  			bufr = new BufferedReader(new FileReader(sourceFile));
 [41]  			bufw = new BufferedWriter(new FileWriter(destinationFile));
 [42]  			String line = null;
 [43]  			int i = 1;
-[44]  			while (null != (line = bufr.readLine())) {	//×¢Òâ£º.readLine()·½·¨²»»á·µ»Ø"»»ĞĞ"
+[44]  			while (null != (line = bufr.readLine())) {	//æ³¨æ„ï¼š.readLine()æ–¹æ³•ä¸ä¼šè¿”å›"æ¢è¡Œ"
 [45]  				bufw.write("[" + i + "]  " + line + "\r\n");
 [46]  				bufw.flush();
 [47]  				i++;
 [48]  			}
 [49]  		}
 [50]  		catch(IOException e) {
-[51]  			throw new RuntimeException("¶ÁĞ´Ê§°Ü");
+[51]  			throw new RuntimeException("è¯»å†™å¤±è´¥");
 [52]  		}
 [53]  		finally {
 [54]  			try {
@@ -57,7 +57,7 @@
 [57]  				}
 [58]  			}
 [59]  			catch(IOException e) {
-[60]  				throw new RuntimeException("Ô´ÎÄ¼ş¶ÁÈ¡¹Ø±ÕÊ§°Ü£¡");
+[60]  				throw new RuntimeException("æºæ–‡ä»¶è¯»å–å…³é—­å¤±è´¥ï¼");
 [61]  			}
 [62]  			try {
 [63]  				if(null != bufw) {
@@ -65,16 +65,16 @@
 [65]  				}
 [66]  			}
 [67]  			catch(IOException e) {
-[68]  				throw new RuntimeException("Ä¿µÄÎÄ¼şĞ´Èë¹Ø±ÕÊ§°Ü£¡");
+[68]  				throw new RuntimeException("ç›®çš„æ–‡ä»¶å†™å…¥å…³é—­å¤±è´¥ï¼");
 [69]  			}
 [70]  		}
-[71]  		sop("Successful!--Ô´ÎÄ¼ş£º\"" + sourceFile.getName() + "\"[¸´ÖÆµ½]"
-[72]  			+ "Ä¿µÄÎÄ¼ş\"" + destinationFile.getName() + "\"");
+[71]  		sop("Successful!--æºæ–‡ä»¶ï¼š\"" + sourceFile.getName() + "\"[å¤åˆ¶åˆ°]"
+[72]  			+ "ç›®çš„æ–‡ä»¶\"" + destinationFile.getName() + "\"");
 [73]  	}
 [74]  
 [75]  	public static void sop(Object obj) {
 [76]  		/**
-[77]  		 * ´òÓ¡×Ö·û´®
+[77]  		 * æ‰“å°å­—ç¬¦ä¸²
 [78]  		 * 
 [79]  		 */
 [80]  		System.out.println(obj);
@@ -82,7 +82,7 @@
 [82]  
 [83]  	public static void lineSplit() {
 [84]  		/**
-[85]  		 * ´òÓ¡·Ö¸ô·û
+[85]  		 * æ‰“å°åˆ†éš”ç¬¦
 [86]  		 * 
 [87]  		 */
 [88]  		sop("---------------------------");
