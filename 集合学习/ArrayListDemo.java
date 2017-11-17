@@ -1,90 +1,91 @@
 
+// è›‹å¥½ç–¼
 /*
-¼¯ºÏÌåÏµ£ºCollection£º´æ´¢µÄÊÇ¶ÔÏóµÄÒıÓÃ
-			|-- List£ºÔªËØÊ±ÓĞĞòµÄ£¬ÔªËØ¿ÉÒÔÖØ¸´
-					  List¼¯ºÏÌåÏµÓĞË÷Òı
-				|-- ArrayList£ºµ×²ãµÄÊı¾İ½á¹¹ÊÇÊı×é£¬ÌØµã£º²éÑ¯ËÙ¶È¿ì£¬ÔöÉ¾ÉÔÂı£¬Ïß³Ì²»Í¬²½
-				|-- LinkedList£ºµ×²ãµÄÊı¾İ½á¹¹ÊÇÁ´±í£¬ÌØµã£º²éÑ¯ËÙ¶ÈÉÔÂı£¬ÔöÉ¾ºÜ¿ì£¬Ïß³Ì²»Í¬²½
-						LinkedListÌØÓĞ·½·¨£º
-							¡¾boolean¡¿.offerFirst(element)£ºÔÚ±íÍ·Ìí¼ÓÔªËØ
-							¡¾boolean¡¿.offerLast(element)£ºÔÚ±íÄ©Ìí¼ÓÔªËØ
-							¡¾E¡¿.peekFirst(¿Õ²Î)£º½ö»ñÈ¡±íÍ·ÔªËØ£¬²»¸Ä±äLinkedList
-							¡¾E¡¿.peekLast(¿Õ²Î)£º½ö»ñÈ¡±íÄ©ÔªËØ£¬²»¸Ä±äLinkedList
-							¡¾E¡¿.pollFirst(¿Õ²Î)£º»ñÈ¡²¢ÒÆ³ı±íÍ·ÔªËØ£¬¸Ä±äLinkedList
-							¡¾E¡¿.pollLast(¿Õ²Î)£º»ñÈ¡²¢ÒÆ³ı±íÎ²ÔªËØ£¬¸Ä±äLinkedList
-							¡¾E¡¿.pop(¿Õ²Î)£ºµ¯³ö²¢·µ»ØÒ»¸öÕ»¶¥ÔªËØ
-							¡¾void¡¿.push(element)£ºÑ¹ÈëÒ»¸öÔªËØÖÁÕ»¶¥
-				|-- Vector£ºµ×²ãµÄÊı¾İ½á¹¹ÊÇÊı×é£¬Ïß³ÌÍ¬²½£¬ÒÑ±»ArrayListÌæ´ú
-			|-- Set£ºÔªËØÊÇÎŞĞòµÄ£¬ÔªËØ²»¿ÉÒÔÖØ¸´
+é›†åˆä½“ç³»ï¼šCollectionï¼šå­˜å‚¨çš„æ˜¯å¯¹è±¡çš„å¼•ç”¨
+			|-- Listï¼šå…ƒç´ æ—¶æœ‰åºçš„ï¼Œå…ƒç´ å¯ä»¥é‡å¤
+					  Listé›†åˆä½“ç³»æœ‰ç´¢å¼•
+				|-- ArrayListï¼šåº•å±‚çš„æ•°æ®ç»“æ„æ˜¯æ•°ç»„ï¼Œç‰¹ç‚¹ï¼šæŸ¥è¯¢é€Ÿåº¦å¿«ï¼Œå¢åˆ ç¨æ…¢ï¼Œçº¿ç¨‹ä¸åŒæ­¥
+				|-- LinkedListï¼šåº•å±‚çš„æ•°æ®ç»“æ„æ˜¯é“¾è¡¨ï¼Œç‰¹ç‚¹ï¼šæŸ¥è¯¢é€Ÿåº¦ç¨æ…¢ï¼Œå¢åˆ å¾ˆå¿«ï¼Œçº¿ç¨‹ä¸åŒæ­¥
+						LinkedListç‰¹æœ‰æ–¹æ³•ï¼š
+							ã€booleanã€‘.offerFirst(element)ï¼šåœ¨è¡¨å¤´æ·»åŠ å…ƒç´ 
+							ã€booleanã€‘.offerLast(element)ï¼šåœ¨è¡¨æœ«æ·»åŠ å…ƒç´ 
+							ã€Eã€‘.peekFirst(ç©ºå‚)ï¼šä»…è·å–è¡¨å¤´å…ƒç´ ï¼Œä¸æ”¹å˜LinkedList
+							ã€Eã€‘.peekLast(ç©ºå‚)ï¼šä»…è·å–è¡¨æœ«å…ƒç´ ï¼Œä¸æ”¹å˜LinkedList
+							ã€Eã€‘.pollFirst(ç©ºå‚)ï¼šè·å–å¹¶ç§»é™¤è¡¨å¤´å…ƒç´ ï¼Œæ”¹å˜LinkedList
+							ã€Eã€‘.pollLast(ç©ºå‚)ï¼šè·å–å¹¶ç§»é™¤è¡¨å°¾å…ƒç´ ï¼Œæ”¹å˜LinkedList
+							ã€Eã€‘.pop(ç©ºå‚)ï¼šå¼¹å‡ºå¹¶è¿”å›ä¸€ä¸ªæ ˆé¡¶å…ƒç´ 
+							ã€voidã€‘.push(element)ï¼šå‹å…¥ä¸€ä¸ªå…ƒç´ è‡³æ ˆé¡¶
+				|-- Vectorï¼šåº•å±‚çš„æ•°æ®ç»“æ„æ˜¯æ•°ç»„ï¼Œçº¿ç¨‹åŒæ­¥ï¼Œå·²è¢«ArrayListæ›¿ä»£
+			|-- Setï¼šå…ƒç´ æ˜¯æ— åºçš„ï¼Œå…ƒç´ ä¸å¯ä»¥é‡å¤
 				|-- HashSet
 				|-- TreeSet
-		£ºMap
+		ï¼šMap
 			|-- HashTable
 			|-- HashMap
 			|-- TreeMap
-List£ºÌØÓĞ·½·¨£¬·²ÊÇ¿ÉÒÔÕë¶ÔË÷Òı²Ù×÷µÄ·½·¨
-	--Ôö£º
-		¡¾void¡¿add(index, element):ÔÚÖ¸¶¨Ë÷Òı²åÈëÖ¸¶¨ÔªËØ
-		¡¾boolean¡¿addAll(index, Collection)£ºÔÚÖ¸¶¨Ë÷Òı²åÈëÖ¸¶¨¼¯ºÏËùÓĞÔªËØ
-	--É¾£º
-		¡¾E¡¿remove(index)£ºÒÆ³ı²¢·µ»ØÖ¸¶¨ÔªËØ
-	--¸Ä£º
-		¡¾E¡¿set(index, element)£ºÔÚÖ¸¶¨Î»ÖÃÌæ»»²¢·µ»ØÔ­ÓĞÔªËØ
-	--²é£º
-		¡¾E¡¿get(index)£º»ñÈ¡²¢·µ»ØÖ¸¶¨ÔªËØ
-		¡¾int¡¿indexOf(element)£º»ñÈ¡²¢·µ»ØÖ¸¶¨ÔªËØµÄindex
-		¡¾List<E>¡¿subList(fromIndex, toIndex)£º»ñÈ¡²¢·µ»Ø[fromIndex£¬toIndex)µÄ×ÓÁĞ±í
-		¡¾ListIterator<E>¡¿listInterator()£º»ñÈ¡²¢·µ»Ø¸ÃListµÄÏàµÈÔªËØÀàĞÍ<E>µÄµü´úÆ÷¶ÔÏó
+Listï¼šç‰¹æœ‰æ–¹æ³•ï¼Œå‡¡æ˜¯å¯ä»¥é’ˆå¯¹ç´¢å¼•æ“ä½œçš„æ–¹æ³•
+	--å¢ï¼š
+		ã€voidã€‘add(index, element):åœ¨æŒ‡å®šç´¢å¼•æ’å…¥æŒ‡å®šå…ƒç´ 
+		ã€booleanã€‘addAll(index, Collection)ï¼šåœ¨æŒ‡å®šç´¢å¼•æ’å…¥æŒ‡å®šé›†åˆæ‰€æœ‰å…ƒç´ 
+	--åˆ ï¼š
+		ã€Eã€‘remove(index)ï¼šç§»é™¤å¹¶è¿”å›æŒ‡å®šå…ƒç´ 
+	--æ”¹ï¼š
+		ã€Eã€‘set(index, element)ï¼šåœ¨æŒ‡å®šä½ç½®æ›¿æ¢å¹¶è¿”å›åŸæœ‰å…ƒç´ 
+	--æŸ¥ï¼š
+		ã€Eã€‘get(index)ï¼šè·å–å¹¶è¿”å›æŒ‡å®šå…ƒç´ 
+		ã€intã€‘indexOf(element)ï¼šè·å–å¹¶è¿”å›æŒ‡å®šå…ƒç´ çš„index
+		ã€List<E>ã€‘subList(fromIndex, toIndex)ï¼šè·å–å¹¶è¿”å›[fromIndexï¼ŒtoIndex)çš„å­åˆ—è¡¨
+		ã€ListIterator<E>ã€‘listInterator()ï¼šè·å–å¹¶è¿”å›è¯¥Listçš„ç›¸ç­‰å…ƒç´ ç±»å‹<E>çš„è¿­ä»£å™¨å¯¹è±¡
 */
 //----------------------------/
-/*ArrayListDemo.javaÔËĞĞ½á¹û£º
+/*ArrayListDemo.javaè¿è¡Œç»“æœï¼š
 ---------------------------
-10¸öËæ»úÕûÊı¶ÔÏó×é³ÉµÄArrayList-->af³õÊ¼»¯Îª::
+10ä¸ªéšæœºæ•´æ•°å¯¹è±¡ç»„æˆçš„ArrayList-->afåˆå§‹åŒ–ä¸º::
 	[5, 2, 1, 6, 2, 10, 4, 1, 5, 8]
-×ÔÉí¿ËÂ¡ºóArrayList-->afµÄËùÓĞÔªËØÎª:
+è‡ªèº«å…‹éš†åArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:
 	[5, 2, 1, 6, 2, 10, 4, 1, 5, 8, 5, 2, 1, 6, 2, 10, 4, 1, 5, 8]
 ---------------------------
-È¥ÖØÇ°ArrayList-->afµÄËùÓĞÔªËØÎª:
+å»é‡å‰ArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:
 	[5, 2, 1, 6, 2, 10, 4, 1, 5, 8, 5, 2, 1, 6, 2, 10, 4, 1, 5, 8]
-È¥ÖØºóArrayList-->afµÄËùÓĞÔªËØÎª:
+å»é‡åArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:
 	[5, 2, 1, 6, 10, 4, 8]
-Çë°´ÈÎÒâ¼ü¼ÌĞø. . .
+è¯·æŒ‰ä»»æ„é”®ç»§ç»­. . .
 */
 
-/*È¥³ıArrayListÖĞµÄÖØ¸´ÔªËØ*/
+/*å»é™¤ArrayListä¸­çš„é‡å¤å…ƒç´ */
 import java.util.*;
-import java.lang.Math;		//µ¼Èë²úÉúËæ»úÊıµÄjava.lang.Math°ü
+import java.lang.Math;		//å¯¼å…¥äº§ç”Ÿéšæœºæ•°çš„java.lang.MathåŒ…
 class ArrayListDemo {
 	public static void main(String[] args) {
 		ArrayList af = new ArrayList();
-		//Ìí¼ÓÔªËØ£¬Ê¹ÓÃMath.random()²úÉú[0.0£¬1.0)µÄ¾ùÔÈ·Ö²¼Ëæ»úÊı
-		//			ÍùafÖĞÌí¼Ó10¸öInteger¶ÔÏó
+		//æ·»åŠ å…ƒç´ ï¼Œä½¿ç”¨Math.random()äº§ç”Ÿ[0.0ï¼Œ1.0)çš„å‡åŒ€åˆ†å¸ƒéšæœºæ•°
+		//			å¾€afä¸­æ·»åŠ 10ä¸ªIntegerå¯¹è±¡
 		for(int i = 10; i > 0; i--) {
-			//Ê¹ÓÃ¼Ì³Ğ×ÔCollectionµÄ.add(element)·½·¨Ìí¼ÓÔªËØ
+			//ä½¿ç”¨ç»§æ‰¿è‡ªCollectionçš„.add(element)æ–¹æ³•æ·»åŠ å…ƒç´ 
 			af.add((int)(Math.random() * 10) + 1);
 		}
 		lineSplit();
-		sop("10¸öËæ»úÕûÊı¶ÔÏó×é³ÉµÄArrayList-->af³õÊ¼»¯Îª::\n\t" + af);
-		//Ê¹ÓÃ¼Ì³Ğ×ÔColetionµÄ.addAll(¼¯ºÏ)·½·¨Ìí¼Ó×ÔÉí¼¯ºÏ
+		sop("10ä¸ªéšæœºæ•´æ•°å¯¹è±¡ç»„æˆçš„ArrayList-->afåˆå§‹åŒ–ä¸º::\n\t" + af);
+		//ä½¿ç”¨ç»§æ‰¿è‡ªColetionçš„.addAll(é›†åˆ)æ–¹æ³•æ·»åŠ è‡ªèº«é›†åˆ
 		af.addAll(af);
-		sop("×ÔÉí¿ËÂ¡ºóArrayList-->afµÄËùÓĞÔªËØÎª:\n\t" + af);
+		sop("è‡ªèº«å…‹éš†åArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:\n\t" + af);
 		lineSplit();
 		af = noRepeatElement(af);
-		sop("È¥ÖØºóArrayList-->afµÄËùÓĞÔªËØÎª:\n\t" + af);
+		sop("å»é‡åArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:\n\t" + af);
 	}
 
 	public static ArrayList noRepeatElement(ArrayList af) {
 		ArrayList newAf = new ArrayList();
-		sop("È¥ÖØÇ°ArrayList-->afµÄËùÓĞÔªËØÎª:\n\t" + af);
-		//forÑ­»·ÄÚ²¿½¨Á¢ListIteratorµü´úÆ÷ait
-		//			 ait.hasNext()ÅĞ¶ÏÊÇ·ñµ±Ç°²Ù×÷ÔªËØÊÇ·ñÎª±íÄ©ºóÒ»¸öÔªËØnull
+		sop("å»é‡å‰ArrayList-->afçš„æ‰€æœ‰å…ƒç´ ä¸º:\n\t" + af);
+		//forå¾ªç¯å†…éƒ¨å»ºç«‹ListIteratorè¿­ä»£å™¨ait
+		//			 ait.hasNext()åˆ¤æ–­æ˜¯å¦å½“å‰æ“ä½œå…ƒç´ æ˜¯å¦ä¸ºè¡¨æœ«åä¸€ä¸ªå…ƒç´ null
 		for(ListIterator ait = af.listIterator(); ait.hasNext(); ) {
-			//Ê¹ÓÃ¼Ì³Ğ×ÔCollectionµÄ.contains()·½·¨ÅĞ¶ÏÊÇ·ñ°üº¬ÔªËØ
-			//			ListIteratorµü´úÆ÷ait.next()·½·¨£¬»ñÈ¡µ±Ç°ÔªËØ£¬²¢½«Ö¸ÕëÒÆÏòºóÒ»¸öµü´ú¶ÔÏó
+			//ä½¿ç”¨ç»§æ‰¿è‡ªCollectionçš„.contains()æ–¹æ³•åˆ¤æ–­æ˜¯å¦åŒ…å«å…ƒç´ 
+			//			ListIteratorè¿­ä»£å™¨ait.next()æ–¹æ³•ï¼Œè·å–å½“å‰å…ƒç´ ï¼Œå¹¶å°†æŒ‡é’ˆç§»å‘åä¸€ä¸ªè¿­ä»£å¯¹è±¡
 		    if(!newAf.contains(ait.next())) {
-				//Ê¹ÓÃListIteratorµü´úÆ÷ait.previous()ÌØÓĞ·½·¨½«Ö¸ÕëÒÆÏòµ±Ç°Òª»ñÈ¡µÄ¶ÔÏó
+				//ä½¿ç”¨ListIteratorè¿­ä»£å™¨ait.previous()ç‰¹æœ‰æ–¹æ³•å°†æŒ‡é’ˆç§»å‘å½“å‰è¦è·å–çš„å¯¹è±¡
 				newAf.add(ait.previous());
-				//Ìí¼Óºó£¬½«Ö¸Õë»¹Ô­ÖÁÏÂÒ»¸öÒªµü´úµÄ¶ÔÏó
+				//æ·»åŠ åï¼Œå°†æŒ‡é’ˆè¿˜åŸè‡³ä¸‹ä¸€ä¸ªè¦è¿­ä»£çš„å¯¹è±¡
 				ait.next();
 			}
 		}
@@ -94,7 +95,7 @@ class ArrayListDemo {
 	public static void sop(Object obj) {
 		System.out.println(obj);
 	}
-
+git fuck, bug shoot!
 	public static void sopt(Object obj) {
 		System.out.print(obj);
 	}
